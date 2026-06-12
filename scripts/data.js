@@ -125,3 +125,22 @@ CALYXR.activityFeed = [
     timestamp: "Today"
   }
 ];
+
+CALYXR.executiveMetrics = [
+  {
+    title: "Organization Health",
+    value: "78%"
+  },
+  {
+    title: "Departments Online",
+    value: "5"
+  },
+  {
+    title: "Active Projects",
+    value: "3"
+  },
+  {
+    title: "Current Sprint",
+    value: "#003"
+  }
+];

@@ -394,42 +394,26 @@ renderTaskBoard();
 const metricsContainer = document.getElementById("metrics-container");
 
 function renderMetrics() {
-  let totalTasks = 0;
-  let completedTasks = 0;
+  const container = document.getElementById("metrics-container");
 
-  for (const agent in agentTasks) {
-    totalTasks += agentTasks[agent].length;
-
-    completedTasks += agentTasks[agent].filter(
-      task => task.completed
-    ).length;
+  if (!container) {
+    return;
   }
 
-  const completionRate = Math.round(
-    (completedTasks / totalTasks) * 100
-  );
+  container.innerHTML = "";
 
-  metricsContainer.innerHTML = `
-    <div class="metric-card">
-      <h3>${completionRate}%</h3>
-      <p>Organization Health</p>
-    </div>
+  CALYXR.executiveMetrics.forEach(metric => {
+    const card = document.createElement("div");
 
-    <div class="metric-card">
-      <h3>${completedTasks}</h3>
-      <p>Tasks Completed</p>
-    </div>
+    card.classList.add("metric-card");
 
-    <div class="metric-card">
-      <h3>${totalTasks - completedTasks}</h3>
-      <p>Tasks Remaining</p>
-    </div>
+    card.innerHTML = `
+      <h3>${metric.value}</h3>
+      <p>${metric.title}</p>
+    `;
 
-    <div class="metric-card">
-      <h3>3</h3>
-      <p>Active Projects</p>
-    </div>
-  `;
+    container.appendChild(card);
+  });
 }
 
 const rankingsContainer = document.getElementById("rankings-container");
