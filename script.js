@@ -605,10 +605,57 @@ function renderRoadmap() {
   });
 }
 
+function renderExecutiveBrief() {
+  const container = document.getElementById("executive-brief-container");
+
+  if (!container) {
+    return;
+  }
+
+  const organizationHealth = CALYXR.metrics.organizationHealth;
+  const activeProjects = CALYXR.metrics.projectsActive;
+  const departmentsOnline = CALYXR.metrics.departmentsOnline;
+
+  const highestPriorityProject = CALYXR.projects.find(
+    project => project.priority === "High"
+  );
+
+  container.innerHTML = `
+    <div class="brief-card">
+      <h3>Organization Health</h3>
+      <p>${organizationHealth}%</p>
+    </div>
+
+    <div class="brief-card">
+      <h3>Departments Online</h3>
+      <p>${departmentsOnline}</p>
+    </div>
+
+    <div class="brief-card">
+      <h3>Active Projects</h3>
+      <p>${activeProjects}</p>
+    </div>
+
+    <div class="brief-card">
+      <h3>Priority Focus</h3>
+      <p>${highestPriorityProject.name}</p>
+    </div>
+
+    <div class="brief-card wide-brief">
+      <h3>Recommended Action</h3>
+      <p>
+        Continue focusing TAURUS on the Budgeting App MVP while ARIES maintains
+        executive oversight of CALYXR HQ v1.5.
+      </p>
+    </div>
+  `;
+}
+
 renderTopMetrics();
 renderProjectTracker();
 renderDepartments();
 renderRoadmap();
+renderExecutiveBrief();
 
 loadData();
 
