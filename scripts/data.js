@@ -144,3 +144,45 @@ CALYXR.executiveMetrics = [
     value: "#003"
   }
 ];
+
+CALYXR.agents = [
+  {
+    name: "ARIES",
+    role: "Chief Executive Officer",
+    status: "Working",
+    priority: "High",
+    assignment: "Manage CALYXR HQ"
+  },
+
+  {
+    name: "TAURUS",
+    role: "Lead Software Engineer",
+    status: "Working",
+    priority: "High",
+    assignment: "Build Budgeting App MVP"
+  },
+
+  {
+    name: "VIRGO",
+    role: "Knowledge Director",
+    status: "Working",
+    priority: "Medium",
+    assignment: "Expand Research Library"
+  },
+
+  {
+    name: "LIBRA",
+    role: "Financial Director",
+    status: "Standby",
+    priority: "Medium",
+    assignment: "Budget Planning"
+  },
+
+  {
+    name: "SAGITTARIUS",
+    role: "Growth Strategist",
+    status: "Working",
+    priority: "High",
+    assignment: "Acquire First Client"
+  }
+];

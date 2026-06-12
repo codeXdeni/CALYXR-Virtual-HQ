@@ -471,56 +471,30 @@ const agentStatusContainer =
   );
 
 function renderAgentStatus() {
+  const container =
+    document.getElementById("agent-status-container");
 
-  agentStatusContainer.innerHTML = "";
-
-  const grid =
-    document.createElement("div");
-
-  grid.classList.add(
-    "agent-status-grid"
-  );
-
-  for (const agent in agentStatus) {
-
-    const card =
-      document.createElement("a");
-
-    card.classList.add(
-      "agent-status-card"
-    );
-
-    card.href =
-      `pages/${agent.toLowerCase()}.html`;
-
-    card.innerHTML = `
-      <h3>${agent}</h3>
-
-      <p>
-        <strong>Role:</strong>
-        ${agentStatus[agent].role}
-      </p>
-
-      <p>
-        <strong>Status:</strong>
-        ${agentStatus[agent].status}
-      </p>
-
-      <p>
-        <strong>Priority:</strong>
-        ${agentStatus[agent].priority}
-      </p>
-
-      <p>
-        <strong>Assignment:</strong>
-        ${agentStatus[agent].assignment}
-      </p>
-    `;
-
-    grid.appendChild(card);
+  if (!container) {
+    return;
   }
 
-  agentStatusContainer.appendChild(grid);
+  container.innerHTML = "";
+
+  CALYXR.agents.forEach(agent => {
+    const card = document.createElement("div");
+
+    card.classList.add("agent-card");
+
+    card.innerHTML = `
+      <h3>${agent.name}</h3>
+      <p>${agent.role}</p>
+      <p>Status: ${agent.status}</p>
+      <p>Priority: ${agent.priority}</p>
+      <p>${agent.assignment}</p>
+    `;
+
+    container.appendChild(card);
+  });
 }
 
 function renderTopMetrics() {
