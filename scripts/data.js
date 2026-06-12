@@ -67,4 +67,29 @@ CALYXR.metrics = {
   sprint: "#003"
 };
 
-console.log(CALYXR);
+CALYXR.roadmap = [
+  {
+    item: "Headquarters District",
+    status: "complete"
+  },
+  {
+    item: "Founding Agent Offices",
+    status: "complete"
+  },
+  {
+    item: "Command Center v0.2",
+    status: "complete"
+  },
+  {
+    item: "Budgeting App MVP",
+    status: "in-progress"
+  },
+  {
+    item: "First Client",
+    status: "planned"
+  },
+  {
+    item: "ARIES Ecosystem",
+    status: "planned"
+  }
+];

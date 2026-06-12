@@ -583,7 +583,7 @@ function renderProjectTracker() {
   });
 }
 
-renderProjectTracker();
+
 
 function renderDepartments() {
   const container = document.getElementById(
@@ -616,9 +616,38 @@ function renderDepartments() {
   });
 }
 
-renderDepartments();
+function renderRoadmap() {
+  const container = document.getElementById("roadmap-container");
+
+  if (!container) {
+    return;
+  }
+
+  container.innerHTML = "";
+
+  CALYXR.roadmap.forEach(roadmapItem => {
+    const item = document.createElement("li");
+
+    let icon = "🟪";
+
+    if (roadmapItem.status === "complete") {
+      icon = "✅";
+    }
+
+    if (roadmapItem.status === "in-progress") {
+      icon = "🔄";
+    }
+
+    item.textContent = `${icon} ${roadmapItem.item}`;
+
+    container.appendChild(item);
+  });
+}
 
 renderTopMetrics();
+renderProjectTracker();
+renderDepartments();
+renderRoadmap();
 
 loadData();
 
