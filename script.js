@@ -536,6 +536,24 @@ function renderAgentStatus() {
   agentStatusContainer.appendChild(grid);
 }
 
+function renderTopMetrics() {
+  const departmentsCount = document.getElementById("departments-count");
+  const projectsCount = document.getElementById("projects-count");
+  const agentsCount = document.getElementById("agents-count");
+  const hqVersion = document.getElementById("hq-version");
+
+  if (!departmentsCount || !projectsCount || !agentsCount || !hqVersion) {
+    return;
+  }
+
+  departmentsCount.textContent = CALYXR.metrics.departmentsOnline;
+  projectsCount.textContent = CALYXR.metrics.projectsActive;
+  agentsCount.textContent = CALYXR.departments.length;
+  hqVersion.textContent = "v1.1";
+}
+
+renderTopMetrics();
+
 loadData();
 
 renderTaskBoard();
