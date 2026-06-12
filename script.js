@@ -552,6 +552,72 @@ function renderTopMetrics() {
   hqVersion.textContent = "v1.1";
 }
 
+function renderProjectTracker() {
+  const container = document.getElementById("project-tracker-container");
+
+  if (!container) {
+    return;
+  }
+
+  container.innerHTML = "";
+
+  CALYXR.projects.forEach(project => {
+    const card = document.createElement("div");
+    card.classList.add("project-card");
+
+    card.innerHTML = `
+      <div class="project-header">
+        <h3>${project.name}</h3>
+        <span>${project.progress}%</span>
+      </div>
+
+      <div class="progress-bar">
+        <div class="progress-fill" style="width: ${project.progress}%"></div>
+      </div>
+
+      <p>Status: ${project.priority} Priority</p>
+      <p>Owner: ${project.owner}</p>
+    `;
+
+    container.appendChild(card);
+  });
+}
+
+renderProjectTracker();
+
+function renderDepartments() {
+  const container = document.getElementById(
+    "department-status-container"
+  );
+
+  if (!container) {
+    return;
+  }
+
+  container.innerHTML = "";
+
+  CALYXR.departments.forEach(department => {
+
+    const card = document.createElement("div");
+    card.classList.add("department-status-card");
+
+    card.innerHTML = `
+      <h3>${department.name}</h3>
+
+      <p>Version: ${department.version}</p>
+
+      <span class="status online">
+        ${department.status}
+      </span>
+    `;
+
+    container.appendChild(card);
+
+  });
+}
+
+renderDepartments();
+
 renderTopMetrics();
 
 loadData();
