@@ -93,3 +93,35 @@ CALYXR.roadmap = [
     status: "planned"
   }
 ];
+
+CALYXR.activityFeed = [
+  {
+    department: "ARIES",
+    action: "Upgraded HQ to v1.2",
+    timestamp: "Today"
+  },
+
+  {
+    department: "TAURUS",
+    action: "Completed Development Wing v0.2",
+    timestamp: "Today"
+  },
+
+  {
+    department: "VIRGO",
+    action: "Completed Grand Library v0.1",
+    timestamp: "Today"
+  },
+
+  {
+    department: "LIBRA",
+    action: "Completed Financial Wing v0.1",
+    timestamp: "Today"
+  },
+
+  {
+    department: "SAGITTARIUS",
+    action: "Completed Strategy Chamber v0.1",
+    timestamp: "Today"
+  }
+];

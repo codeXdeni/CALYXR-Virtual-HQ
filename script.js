@@ -55,30 +55,33 @@ const activityContainer =
 
 function renderActivityFeed() {
 
-  activityContainer.innerHTML = "";
+  const container =
+    document.getElementById("activity-container");
 
-  activityFeed.forEach(item => {
+  if (!container) {
+    return;
+  }
 
-    const activityCard =
-      document.createElement("div");
+  container.innerHTML = "";
 
-    activityCard.classList.add(
-      "activity-card"
-    );
+  CALYXR.activityFeed.forEach(activity => {
 
-    activityCard.innerHTML = `
-      <div class="activity-header">
-        <strong>${item.agent}</strong>
-        <span>${item.time}</span>
-      </div>
+    const card = document.createElement("div");
 
-      <p>${item.message}</p>
+    card.classList.add("activity-card");
+
+    card.innerHTML = `
+      <h4>${activity.department}</h4>
+
+      <p>${activity.action}</p>
+
+      <small>${activity.timestamp}</small>
     `;
 
-    activityContainer.appendChild(
-      activityCard
-    );
+    container.appendChild(card);
+
   });
+
 }
 
 let agentStatus = {
