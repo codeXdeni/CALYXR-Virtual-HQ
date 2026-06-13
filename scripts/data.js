@@ -146,45 +146,52 @@ CALYXR.executiveMetrics = [
 ];
 
 CALYXR.agents = [
-  {
+
+{
     name: "ARIES",
     role: "Chief Executive Officer",
     status: "Working",
+    assignment: "Executive Dashboard",
     priority: "High",
-    assignment: "Manage CALYXR HQ"
-  },
+    workload: 80
+},
 
-  {
+{
     name: "TAURUS",
     role: "Lead Software Engineer",
     status: "Working",
+    assignment: "Budgeting App MVP",
     priority: "High",
-    assignment: "Build Budgeting App MVP"
-  },
+    workload: 75
+},
 
-  {
+{
     name: "VIRGO",
-    role: "Knowledge Director",
-    status: "Working",
+    role: "Knowledge Architect",
+    status: "Idle",
+    assignment: "Knowledge Vault",
     priority: "Medium",
-    assignment: "Expand Research Library"
-  },
+    workload: 20
+},
 
-  {
+{
     name: "LIBRA",
-    role: "Financial Director",
-    status: "Standby",
+    role: "Financial Planner",
+    status: "Idle",
+    assignment: "Budget Planning",
     priority: "Medium",
-    assignment: "Budget Planning"
-  },
+    workload: 15
+},
 
-  {
+{
     name: "SAGITTARIUS",
-    role: "Growth Strategist",
-    status: "Working",
+    role: "Strategic Advisor",
+    status: "Planning",
+    assignment: "Business Expansion",
     priority: "High",
-    assignment: "Acquire First Client"
-  }
+    workload: 25
+}
+
 ];
 
 CALYXR.tasks = {

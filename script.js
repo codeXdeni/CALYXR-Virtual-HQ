@@ -582,6 +582,19 @@ const agentStatusContainer =
     "agent-status-container"
   );
 
+function getAgentStatusClass(status) {
+
+    if (status === "Working") {
+        return "working";
+    }
+
+    if (status === "Planning") {
+        return "planning";
+    }
+
+    return "idle";
+}
+
 function renderAgentStatus() {
   const container =
     document.getElementById("agent-status-container");
@@ -598,11 +611,38 @@ function renderAgentStatus() {
     card.classList.add("agent-card");
 
     card.innerHTML = `
-      <h3>${agent.name}</h3>
-      <p>${agent.role}</p>
-      <p>Status: ${agent.status}</p>
-      <p>Priority: ${agent.priority}</p>
-      <p>${agent.assignment}</p>
+    <h3>${agent.name}</h3>
+
+    <p>
+        <strong>Role:</strong>
+        ${agent.role}
+    </p>
+
+    <p>
+        <strong>Status:</strong>
+
+        <span class="agent-status-chip
+            ${getAgentStatusClass(agent.status)}">
+
+            ${agent.status}
+
+        </span>
+    </p>
+
+    <p>
+        <strong>Assignment:</strong>
+        ${agent.assignment}
+    </p>
+
+    <p>
+        <strong>Priority:</strong>
+        ${agent.priority}
+    </p>
+
+    <p>
+        <strong>Workload:</strong>
+        ${agent.workload}%
+    </p>
     `;
 
     container.appendChild(card);

@@ -1006,3 +1006,25 @@ body {
   box-shadow: 0 0 20px rgba(46, 139, 87, 0.4);
   transform: translateY(-2px);
 }
+
+.agent-status-chip {
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.agent-status-chip.working {
+    background: #b7f0c3;
+    color: #1b5e20;
+}
+
+.agent-status-chip.planning {
+    background: #fff1b8;
+    color: #8a6d00;
+}
+
+.agent-status-chip.idle {
+    background: #e0e0e0;
+    color: #555;
+}
