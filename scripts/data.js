@@ -186,3 +186,35 @@ CALYXR.agents = [
     assignment: "Acquire First Client"
   }
 ];
+
+CALYXR.tasks = {
+  ARIES: [
+    { task: "Upgrade HQ v0.2", completed: true },
+    { task: "Build Executive Dashboard", completed: false },
+    { task: "Generate Weekly Reports", completed: false }
+  ],
+
+  TAURUS: [
+    { task: "Development Wing v0.1", completed: false },
+    { task: "Budgeting App Frontend", completed: false },
+    { task: "Learn React", completed: false }
+  ],
+
+  VIRGO: [
+    { task: "Knowledge Vault", completed: false },
+    { task: "Research Oregon Businesses", completed: false },
+    { task: "Document AI Ecosystem", completed: false }
+  ],
+
+  LIBRA: [
+    { task: "Budget Planning", completed: false },
+    { task: "Emergency Fund Strategy", completed: false },
+    { task: "Debt Reduction Plan", completed: false }
+  ],
+
+  SAGITTARIUS: [
+    { task: "Career Roadmap", completed: false },
+    { task: "Business Expansion Plan", completed: false },
+    { task: "AI Ecosystem Strategy", completed: false }
+  ]
+};

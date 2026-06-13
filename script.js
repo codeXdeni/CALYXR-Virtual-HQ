@@ -3,6 +3,12 @@ const metrics = {
   projects: 3
 };
 
+function calculateDepartmentPerformance(tasks) {
+  const completedTasks = tasks.filter(task => task.completed).length;
+
+  return Math.round((completedTasks / tasks.length) * 100);
+}
+
 function updateClock() {
   const now = new Date();
 
@@ -23,7 +29,7 @@ projectCards.forEach((card) => {
 
   progressNumber.textContent = progress + "%";
   progressFill.style.width = progress + "%";
-});
+})
 
 const activityLog = [
   {
@@ -121,82 +127,7 @@ let agentStatus = {
   }
 };
 
-const agentTasks = {
-  ARIES: [
-    {
-      task: "Upgrade HQ v0.2",
-      completed: true
-    },
-    {
-      task: "Build Executive Dashboard",
-      completed: true
-    },
-    {
-      task: "Generate Weekly Reports",
-      completed: false
-    }
-  ],
-
-  TAURUS: [
-    {
-      task: "Development Wing v0.1",
-      completed: true
-    },
-    {
-      task: "Budgeting App Frontend",
-      completed: true
-    },
-    {
-      task: "Learn React",
-      completed: false
-    }
-  ],
-
-  VIRGO: [
-    {
-      task: "Knowledge Vault",
-      completed: true
-    },
-    {
-      task: "Research Oregon Businesses",
-      completed: false
-    },
-    {
-      task: "Document AI Ecosystem",
-      completed: false
-    }
-  ],
-
-  LIBRA: [
-    {
-      task: "Budget Planning",
-      completed: true
-    },
-    {
-      task: "Emergency Fund Strategy",
-      completed: true
-    },
-    {
-      task: "Debt Reduction Plan",
-      completed: false
-    }
-  ],
-
-  SAGITTARIUS: [
-    {
-      task: "Career Roadmap",
-      completed: true
-    },
-    {
-      task: "Business Expansion Plan",
-      completed: true
-    },
-    {
-      task: "AI Ecosystem Strategy",
-      completed: true
-    }
-  ]
-};
+let agentTasks = CALYXR.tasks;
 
 let activityFeed = [
   {
@@ -419,28 +350,22 @@ function renderMetrics() {
 const rankingsContainer = document.getElementById("rankings-container");
 
 function renderRankings() {
-  rankingsContainer.innerHTML = "";
-
-  const departmentRankings = [];
-
-  for (const agent in agentTasks) {
-    const completedTasks = agentTasks[agent].filter(
-      task => task.completed
-    ).length;
-
-    const totalTasks = agentTasks[agent].length;
-
-    const score = Math.round(
-      (completedTasks / totalTasks) * 100
-    );
-
-    departmentRankings.push({
-      name: agent,
-      score: score
-    });
+  if (!rankingsContainer) {
+    return;
   }
 
-  departmentRankings.sort((a, b) => b.score - a.score);
+  const departmentRankings = Object.keys(agentTasks).map(agent => {
+    const performance = calculateDepartmentPerformance(agentTasks[agent]);
+
+    return {
+      name: agent,
+      performance: performance
+    };
+  });
+
+  departmentRankings.sort((a, b) => b.performance - a.performance);
+
+  rankingsContainer.innerHTML = "";
 
   departmentRankings.forEach((department, index) => {
     const rankingCard = document.createElement("div");
@@ -450,13 +375,13 @@ function renderRankings() {
     rankingCard.innerHTML = `
       <div class="ranking-info">
         <strong>${index + 1}. ${department.name}</strong>
-        <span>${department.score}%</span>
+        <span>${department.performance}%</span>
       </div>
 
       <div class="mini-progress-bar">
         <div
           class="mini-progress-fill"
-          style="width: ${department.score}%;">
+          style="width: ${department.performance}%;">
         </div>
       </div>
     `;
