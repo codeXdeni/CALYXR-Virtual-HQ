@@ -900,3 +900,29 @@ body {
 .wide-brief {
   grid-column: 1 / -1;
 }
+
+.status {
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-weight: 700;
+}
+
+.excellent {
+  background: #4caf50;
+  color: white;
+}
+
+.operational {
+  background: #81c784;
+  color: white;
+}
+
+.warning {
+  background: #ffb74d;
+  color: white;
+}
+
+.critical {
+  background: #ef5350;
+  color: white;
+}

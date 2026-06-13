@@ -9,6 +9,19 @@ function calculateDepartmentPerformance(tasks) {
   return Math.round((completedTasks / tasks.length) * 100);
 }
 
+function getDepartmentRankings() {
+  return Object.keys(agentTasks)
+    .map(agent => {
+      const performance = calculateDepartmentPerformance(agentTasks[agent]);
+
+      return {
+        name: agent,
+        performance: performance
+      };
+    })
+    .sort((a, b) => b.performance - a.performance);
+}
+
 function updateClock() {
   const now = new Date();
 
@@ -324,6 +337,15 @@ renderTaskBoard();
 
 const metricsContainer = document.getElementById("metrics-container");
 
+function calculateOrganizationHealth() {
+  const departmentRankings = getDepartmentRankings();
+
+  return Math.round(
+    departmentRankings.reduce((sum, dept) => sum + dept.performance, 0) /
+      departmentRankings.length
+  );
+}
+
 function renderMetrics() {
   const container = document.getElementById("metrics-container");
 
@@ -331,11 +353,31 @@ function renderMetrics() {
     return;
   }
 
+  const organizationHealth = calculateOrganizationHealth();
+
+  const dynamicMetrics = [
+    {
+      title: "Organization Health",
+      value: `${organizationHealth}%`
+    },
+    {
+      title: "Departments Online",
+      value: CALYXR.metrics.departmentsOnline
+    },
+    {
+      title: "Active Projects",
+      value: CALYXR.metrics.projectsActive
+    },
+    {
+      title: "Current Sprint",
+      value: CALYXR.metrics.sprint
+    }
+  ];
+
   container.innerHTML = "";
 
-  CALYXR.executiveMetrics.forEach(metric => {
+  dynamicMetrics.forEach(metric => {
     const card = document.createElement("div");
-
     card.classList.add("metric-card");
 
     card.innerHTML = `
@@ -354,16 +396,7 @@ function renderRankings() {
     return;
   }
 
-  const departmentRankings = Object.keys(agentTasks).map(agent => {
-    const performance = calculateDepartmentPerformance(agentTasks[agent]);
-
-    return {
-      name: agent,
-      performance: performance
-    };
-  });
-
-  departmentRankings.sort((a, b) => b.performance - a.performance);
+  const departmentRankings = getDepartmentRankings();
 
   rankingsContainer.innerHTML = "";
 
@@ -472,9 +505,7 @@ function renderProjectTracker() {
 
 
 function renderDepartments() {
-  const container = document.getElementById(
-    "department-status-container"
-  );
+  const container = document.getElementById("department-status-container");
 
   if (!container) {
     return;
@@ -483,6 +514,26 @@ function renderDepartments() {
   container.innerHTML = "";
 
   CALYXR.departments.forEach(department => {
+    const performance = calculateDepartmentPerformance(
+      agentTasks[department.name]
+    );
+
+    let statusText;
+    let statusClass;
+
+    if (performance >= 80) {
+      statusText = "Excellent";
+      statusClass = "excellent";
+    } else if (performance >= 50) {
+      statusText = "Operational";
+      statusClass = "operational";
+    } else if (performance >= 25) {
+      statusText = "Warning";
+      statusClass = "warning";
+    } else {
+      statusText = "Critical";
+      statusClass = "critical";
+    }
 
     const card = document.createElement("div");
     card.classList.add("department-status-card");
@@ -492,13 +543,12 @@ function renderDepartments() {
 
       <p>Version: ${department.version}</p>
 
-      <span class="status online">
-        ${department.status}
+      <span class="status ${statusClass}">
+        ${statusText}
       </span>
     `;
 
     container.appendChild(card);
-
   });
 }
 
@@ -537,7 +587,13 @@ function renderExecutiveBrief() {
     return;
   }
 
-  const organizationHealth = CALYXR.metrics.organizationHealth;
+  const departmentRankings = getDepartmentRankings();
+
+  const organizationHealth = calculateOrganizationHealth();
+
+  const weakestDepartment = departmentRankings[departmentRankings.length - 1];
+
+  const priorityProject = CALYXR.projects.find(project => project.priority === "High");
   const activeProjects = CALYXR.metrics.projectsActive;
   const departmentsOnline = CALYXR.metrics.departmentsOnline;
 
@@ -564,26 +620,27 @@ function renderExecutiveBrief() {
     <div class="brief-card">
       <h3>Priority Focus</h3>
       <p>${highestPriorityProject.name}</p>
+      <small>Owner: ${priorityProject.owner} • ${priorityProject.progress}%</small>
     </div>
 
     <div class="brief-card wide-brief">
       <h3>Recommended Action</h3>
       <p>
-        Continue focusing TAURUS on the Budgeting App MVP while ARIES maintains
-        executive oversight of CALYXR HQ v1.5.
+        Focus support on ${weakestDepartment.name}, currently at
+        ${weakestDepartment.performance}% completion, while continuing progress on
+        ${priorityProject.name}.
       </p>
     </div>
   `;
 }
+
+loadData();
 
 renderTopMetrics();
 renderProjectTracker();
 renderDepartments();
 renderRoadmap();
 renderExecutiveBrief();
-
-loadData();
-
 renderTaskBoard();
 renderMetrics();
 renderRankings();

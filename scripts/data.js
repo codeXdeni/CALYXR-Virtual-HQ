@@ -63,7 +63,7 @@ CALYXR.projects = [
 CALYXR.metrics = {
   departmentsOnline: 5,
   projectsActive: 3,
-  organizationHealth: 78,
+  organizationHealth: 0,
   sprint: "#003"
 };
 
