@@ -391,6 +391,22 @@ function renderMetrics() {
 
 const rankingsContainer = document.getElementById("rankings-container");
 
+function getDepartmentStatus(performance) {
+  if (performance >= 80) {
+    return { text: "Excellent", className: "excellent" };
+  }
+
+  if (performance >= 60) {
+    return { text: "Operational", className: "operational" };
+  }
+
+  if (performance >= 30) {
+    return { text: "Warning", className: "warning" };
+  }
+
+  return { text: "Critical", className: "critical" };
+}
+
 function renderRankings() {
   if (!rankingsContainer) {
     return;
@@ -405,10 +421,15 @@ function renderRankings() {
 
     rankingCard.classList.add("ranking-card");
 
+    const status = getDepartmentStatus(department.performance);
+    
     rankingCard.innerHTML = `
       <div class="ranking-info">
         <strong>${index + 1}. ${department.name}</strong>
         <span>${department.performance}%</span>
+        <span class="rank-badge ${status.className}">
+          ${status.text}
+        </span>
       </div>
 
       <div class="mini-progress-bar">
@@ -591,7 +612,14 @@ function renderExecutiveBrief() {
 
   const organizationHealth = calculateOrganizationHealth();
 
-  const weakestDepartment = departmentRankings[departmentRankings.length - 1];
+  const criticalDepartments = departmentRankings.filter(
+    department => department.performance < 25
+  );
+
+  const highestPrioritySupport =
+    criticalDepartments.length > 0
+      ? criticalDepartments[0]
+      : null;
 
   const priorityProject = CALYXR.projects.find(project => project.priority === "High");
   const activeProjects = CALYXR.metrics.projectsActive;
@@ -626,12 +654,60 @@ function renderExecutiveBrief() {
     <div class="brief-card wide-brief">
       <h3>Recommended Action</h3>
       <p>
-        Focus support on ${weakestDepartment.name}, currently at
-        ${weakestDepartment.performance}% completion, while continuing progress on
-        ${priorityProject.name}.
+        ${criticalDepartments.length} departments require assistance.
+        Highest priority support:
+        ${highestPrioritySupport ? highestPrioritySupport.name : "None"}.
+        Continue progress on ${priorityProject.name}.
       </p>
     </div>
   `;
+}
+
+function renderExecutiveAlerts() {
+    const container = document.getElementById("alerts-container");
+
+    if (!container) {
+        return;
+    }
+
+    container.innerHTML = "";
+
+    const rankings = getDepartmentRankings();
+
+    rankings.forEach(department => {
+        if (department.performance < 25) {
+            const alert = document.createElement("div");
+
+            alert.classList.add("alert-card", "warning");
+
+            alert.textContent =
+                `⚠ ${department.name} performance below 25%`;
+
+            container.appendChild(alert);
+        }
+    });
+
+    CALYXR.projects.forEach(project => {
+        if (project.progress === 100) {
+            const alert = document.createElement("div");
+
+            alert.classList.add("alert-card", "success");
+
+            alert.textContent =
+                `✓ ${project.name} completed`;
+
+            container.appendChild(alert);
+        }
+    });
+
+    const onlineAlert = document.createElement("div");
+
+    onlineAlert.classList.add("alert-card", "info");
+
+    onlineAlert.textContent =
+        `✓ ${CALYXR.metrics.departmentsOnline} departments online`;
+
+    container.appendChild(onlineAlert);
 }
 
 loadData();
@@ -646,3 +722,4 @@ renderMetrics();
 renderRankings();
 renderActivityFeed();
 renderAgentStatus();
+renderExecutiveAlerts();
