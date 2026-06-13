@@ -1000,3 +1000,9 @@ body {
   margin: 8px 0;
   line-height: 1.4;
 }
+
+.ranking-card.active {
+  border: 3px solid #2e8b57;
+  box-shadow: 0 0 20px rgba(46, 139, 87, 0.4);
+  transform: translateY(-2px);
+}

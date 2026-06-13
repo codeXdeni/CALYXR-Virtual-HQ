@@ -83,7 +83,31 @@ function renderActivityFeed() {
 
   container.innerHTML = "";
 
-  CALYXR.activityFeed.forEach(activity => {
+  const dynamicFeed = [
+    ...CALYXR.activityFeed
+  ];
+
+  getDepartmentRankings().forEach(department => {
+    if (department.performance < 25) {
+      dynamicFeed.unshift({
+        department: department.name,
+        action: `${department.name} requires support`,
+        timestamp: "Auto"
+      });
+    }
+  });
+
+  CALYXR.projects.forEach(project => {
+    if (project.progress === 100) {
+      dynamicFeed.unshift({
+        department: project.owner,
+        action: `${project.name} reached 100% completion`,
+        timestamp: "Auto"
+      });
+    }
+  });
+
+  dynamicFeed.forEach(activity => {
 
     const card = document.createElement("div");
 
@@ -444,7 +468,14 @@ function renderRankings() {
     rankingsContainer.appendChild(rankingCard);
 
     rankingCard.addEventListener("click", () => {
-      renderDepartmentDetails(department.name);
+
+        document
+          .querySelectorAll(".ranking-card")
+          .forEach(card => card.classList.remove("active"));
+
+        rankingCard.classList.add("active");
+
+        renderDepartmentDetails(department.name);
     });
   });
 }
