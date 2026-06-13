@@ -1028,3 +1028,29 @@ body {
     background: #e0e0e0;
     color: #555;
 }
+
+.workload-bar {
+  width: 300px;
+  height: 12px;
+  margin: 10px auto 0;
+  background: #d9d9d9;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.workload-fill {
+  height: 100%;
+  border-radius: 999px;
+}
+
+.workload-low {
+  background: linear-gradient(90deg, #4d8cff, #7bb1ff);
+}
+
+.workload-normal {
+  background: linear-gradient(90deg, #2f7d57, #68c08f);
+}
+
+.workload-heavy {
+  background: linear-gradient(90deg, #ff8c42, #ffb36b);
+}
