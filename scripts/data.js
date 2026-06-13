@@ -218,3 +218,11 @@ CALYXR.tasks = {
     { task: "AI Ecosystem Strategy", completed: false }
   ]
 };
+
+CALYXR.departmentHistory = {
+  ARIES: [20, 33],
+  TAURUS: [20, 33],
+  VIRGO: [0, 0],
+  LIBRA: [0, 0],
+  SAGITTARIUS: [0, 0]
+};

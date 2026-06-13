@@ -72,6 +72,22 @@ const activityContainer =
     "activity-container"
   );
 
+function saveAgentTasks() {
+    localStorage.setItem(
+        "calyxr-agentTasks",
+        JSON.stringify(agentTasks)
+    );
+}
+
+function loadAgentTasks() {
+    const savedTasks =
+        localStorage.getItem("calyxr-agentTasks");
+
+    if (savedTasks) {
+        agentTasks = JSON.parse(savedTasks);
+    }
+}
+
 function renderActivityFeed() {
 
   const container =
@@ -353,6 +369,9 @@ function renderTaskBoard() {
       renderMetrics();
       renderRankings();
       renderActivityFeed();
+      renderExecutiveBrief();
+      renderExecutiveAlerts();
+      renderDepartments();
     });
   });
 }
@@ -480,6 +499,26 @@ function renderRankings() {
   });
 }
 
+function getDepartmentTrend(departmentName, currentPerformance) {
+  const history = CALYXR.departmentHistory[departmentName] || [];
+
+  if (history.length === 0) {
+    return "Stable";
+  }
+
+  const previousPerformance = history[history.length - 1];
+
+  if (currentPerformance > previousPerformance) {
+    return "Improving";
+  }
+
+  if (currentPerformance < previousPerformance) {
+    return "Declining";
+  }
+
+  return "Stable";
+}
+
 function renderDepartmentDetails(departmentName) {
 
     const container =
@@ -498,6 +537,9 @@ function renderDepartmentDetails(departmentName) {
 
     const status =
         getDepartmentStatus(performance);
+    
+    const trend =
+        getDepartmentTrend(departmentName, performance);
 
     container.innerHTML = `
         <h3>${departmentName}</h3>
@@ -510,6 +552,11 @@ function renderDepartmentDetails(departmentName) {
         <p>
             <strong>Status:</strong>
             ${status.text}
+        </p>
+
+        <p>
+          <strong>Trend:</strong>
+          ${trend}
         </p>
 
         <p>
