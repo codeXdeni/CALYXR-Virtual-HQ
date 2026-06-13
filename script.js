@@ -420,6 +420,7 @@ function renderRankings() {
     const rankingCard = document.createElement("div");
 
     rankingCard.classList.add("ranking-card");
+    rankingCard.style.cursor = "pointer";
 
     const status = getDepartmentStatus(department.performance);
     
@@ -441,7 +442,61 @@ function renderRankings() {
     `;
 
     rankingsContainer.appendChild(rankingCard);
+
+    rankingCard.addEventListener("click", () => {
+      renderDepartmentDetails(department.name);
+    });
   });
+}
+
+function renderDepartmentDetails(departmentName) {
+
+    const container =
+        document.getElementById("department-details");
+
+    if (!container) return;
+
+    const tasks =
+        agentTasks[departmentName] || [];
+
+    const completedTasks =
+        tasks.filter(task => task.completed).length;
+
+    const performance =
+        calculateDepartmentPerformance(tasks);
+
+    const status =
+        getDepartmentStatus(performance);
+
+    container.innerHTML = `
+        <h3>${departmentName}</h3>
+
+        <p>
+            <strong>Performance:</strong>
+            ${performance}%
+        </p>
+
+        <p>
+            <strong>Status:</strong>
+            ${status.text}
+        </p>
+
+        <p>
+            <strong>Completed Tasks:</strong>
+            ${completedTasks}/${tasks.length}
+        </p>
+
+        <h4>Tasks</h4>
+
+        <ul>
+            ${tasks.map(task => `
+                <li>
+                    ${task.completed ? "✓" : "□"}
+                    ${task.task}
+                </li>
+            `).join("")}
+        </ul>
+    `;
 }
 
 const agentStatusContainer =
