@@ -1054,3 +1054,34 @@ body {
 .workload-heavy {
   background: linear-gradient(90deg, #ff8c42, #ffb36b);
 }
+
+.recommendation-card {
+    margin: 12px 0;
+    padding: 16px;
+
+    border-radius: 12px;
+
+    background: rgba(255,255,255,0.75);
+
+    backdrop-filter: blur(6px);
+
+    text-align: left;
+
+    transition: transform 0.2s ease;
+}
+
+.recommendation-card:hover {
+    transform: translateY(-2px);
+}
+
+.recommendation-card h4 {
+    margin-bottom: 6px;
+}
+
+.recommendation-card.warning {
+    border-left: 6px solid #ffb347;
+}
+
+.recommendation-card.opportunity {
+    border-left: 6px solid #66d17a;
+}

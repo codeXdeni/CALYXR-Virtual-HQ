@@ -372,6 +372,7 @@ function renderTaskBoard() {
       renderExecutiveBrief();
       renderExecutiveAlerts();
       renderDepartments();
+      renderAgentRecommendations();
     });
   });
 }
@@ -913,6 +914,58 @@ function renderExecutiveAlerts() {
     container.appendChild(onlineAlert);
 }
 
+function generateAgentRecommendations() {
+  const recommendations = [];
+
+  CALYXR.agents.forEach(agent => {
+    if (agent.workload >= 70) {
+      recommendations.push({
+        agent: agent.name,
+        type: "warning",
+        message: `Workload exceeds optimal capacity. Recommend redistributing tasks to available departments.`
+      });
+    }
+
+    if (agent.workload <= 30) {
+      recommendations.push({
+        agent: agent.name,
+        type: "opportunity",
+        message: `Department capacity available. Candidate for additional assignments.`
+      });
+    }
+  });
+
+  return recommendations;
+}
+
+function renderAgentRecommendations() {
+  const container = document.getElementById("agent-recommendations-container");
+
+  if (!container) {
+    return;
+  }
+
+  container.innerHTML = "";
+
+  const recommendations = generateAgentRecommendations();
+
+  recommendations.forEach(recommendation => {
+    const card = document.createElement("div");
+
+    card.classList.add(
+      "recommendation-card",
+      recommendation.type
+    );
+
+    card.innerHTML = `
+      <h4>${recommendation.agent}</h4>
+      <p>${recommendation.message}</p>
+    `;
+
+    container.appendChild(card);
+  });
+}
+
 loadData();
 
 renderTopMetrics();
@@ -926,3 +979,4 @@ renderRankings();
 renderActivityFeed();
 renderAgentStatus();
 renderExecutiveAlerts();
+renderAgentRecommendations();

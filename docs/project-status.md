@@ -129,8 +129,19 @@ Build Agent Intelligence Layer
 
 ### v0.6
 
-* Agent Recommendations
-* Department Recommendations
+#### Completed
+
+* Agent Recommendations Engine v0.6.1
+* Agent Workload Analysis
+* Dynamic Recommendation Panel
+
+#### In Progress
+
+* Department Intelligence Cards v0.6.2
+
+#### Upcoming
+
+* Executive Insights Engine v0.6.3
 * Performance Insights
 
 ### v0.7
@@ -160,6 +171,6 @@ v0.5
 
 ## Last Completed Milestone
 
-Agent Efficiency Ratings
-Agent Workload Color System
-Agent Command Center v0.5
+Agent Recommendations Engine v0.6.1
+Agent Workload Analysis
+Dynamic Recommendation Panel
