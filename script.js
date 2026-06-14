@@ -894,4 +894,35 @@ function renderExecutiveAlerts() {
         if (project.progress === 100) {
             const alert = document.createElement("div");
 
-            alert
+            alert.classList.add("alert-card", "success");
+
+            alert.textContent =
+                `✓ ${project.name} completed`;
+
+            container.appendChild(alert);
+        }
+    });
+
+    const onlineAlert = document.createElement("div");
+
+    onlineAlert.classList.add("alert-card", "info");
+
+    onlineAlert.textContent =
+        `✓ ${CALYXR.metrics.departmentsOnline} departments online`;
+
+    container.appendChild(onlineAlert);
+}
+
+loadData();
+
+renderTopMetrics();
+renderProjectTracker();
+renderDepartments();
+renderRoadmap();
+renderExecutiveBrief();
+renderTaskBoard();
+renderMetrics();
+renderRankings();
+renderActivityFeed();
+renderAgentStatus();
+renderExecutiveAlerts();
