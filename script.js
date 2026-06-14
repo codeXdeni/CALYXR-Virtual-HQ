@@ -595,6 +595,12 @@ function getAgentStatusClass(status) {
     return "idle";
 }
 
+function getWorkloadClass(workload) {
+  if (workload >= 80) return "workload-heavy";
+  if (workload >= 40) return "workload-normal";
+  return "workload-low";
+}
+
 function renderAgentStatus() {
   const container =
     document.getElementById("agent-status-container");
@@ -609,6 +615,18 @@ function renderAgentStatus() {
     const card = document.createElement("div");
 
     card.classList.add("agent-card");
+
+    const tasks = agentTasks[agent.name] || [];
+
+    const completedTasks =
+      tasks.filter(task => task.completed).length;
+
+    const efficiency =
+      tasks.length > 0
+        ? Math.round(
+            (completedTasks / tasks.length) * 100
+          )
+        : 0;
 
     card.innerHTML = `
     <h3>${agent.name}</h3>
@@ -640,9 +658,21 @@ function renderAgentStatus() {
     </p>
 
     <p>
-        <strong>Workload:</strong>
-        ${agent.workload}%
+      <strong>Workload:</strong>
+      ${agent.workload}%
     </p>
+
+    <p>
+      <strong>Efficiency:</strong>
+      ${efficiency}%
+    </p>
+
+    <div class="workload-bar">
+      <div
+        class="workload-fill ${getWorkloadClass(agent.workload)}"
+        style="width: ${agent.workload}%;">
+      </div>
+    </div>
     `;
 
     container.appendChild(card);
@@ -864,35 +894,4 @@ function renderExecutiveAlerts() {
         if (project.progress === 100) {
             const alert = document.createElement("div");
 
-            alert.classList.add("alert-card", "success");
-
-            alert.textContent =
-                `✓ ${project.name} completed`;
-
-            container.appendChild(alert);
-        }
-    });
-
-    const onlineAlert = document.createElement("div");
-
-    onlineAlert.classList.add("alert-card", "info");
-
-    onlineAlert.textContent =
-        `✓ ${CALYXR.metrics.departmentsOnline} departments online`;
-
-    container.appendChild(onlineAlert);
-}
-
-loadData();
-
-renderTopMetrics();
-renderProjectTracker();
-renderDepartments();
-renderRoadmap();
-renderExecutiveBrief();
-renderTaskBoard();
-renderMetrics();
-renderRankings();
-renderActivityFeed();
-renderAgentStatus();
-renderExecutiveAlerts();
+            alert
