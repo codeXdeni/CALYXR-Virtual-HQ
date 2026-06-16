@@ -131,17 +131,18 @@ Build Agent Intelligence Layer
 
 #### Completed
 
-✓ Agent Recommendations Engine
-✓ Department Intelligence Cards
+✓ Agent Recommendations Engine v0.6.1
+✓ Department Intelligence Cards v0.6.2
+✓ Executive Insights Engine v0.6.3
 
 #### In Progress
 
-• Executive Insights Engine
-• Resource Allocation Analysis
+• Strategic Directives Engine v0.6.4
 
 #### Upcoming
 
 • Dynamic Strategic Recommendations
+• Cross-Department Coordination
 
 ### v0.7
 

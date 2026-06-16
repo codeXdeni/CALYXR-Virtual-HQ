@@ -1103,3 +1103,28 @@ body {
 .intelligence-card h4 {
     margin-bottom: 8px;
 }
+
+.executive-insight-card {
+    margin: 12px 0;
+    padding: 18px;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.85);
+    border-left: 6px solid #2e8b57;
+    backdrop-filter: blur(6px);
+}
+
+.executive-insight-card h4 {
+    margin-bottom: 8px;
+}
+
+.directive-card {
+    margin: 12px 0;
+    padding: 18px;
+    border-radius: 12px;
+    border-left: 6px solid #1f5f3f;
+    background: rgba(255,255,255,0.9);
+}
+
+.directive-card h4 {
+    margin-bottom: 8px;
+}

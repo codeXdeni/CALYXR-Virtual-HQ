@@ -374,6 +374,8 @@ function renderTaskBoard() {
       renderDepartments();
       renderAgentRecommendations();
       renderDepartmentInsights();
+      renderExecutiveInsights();
+      renderStrategicDirectives();
     });
   });
 }
@@ -1020,6 +1022,149 @@ function generateDepartmentInsights() {
     return insights;
 }
 
+function generateExecutiveInsights() {
+    const insights = [];
+
+    const organizationHealth =
+        calculateOrganizationHealth();
+
+    if (organizationHealth < 25) {
+        insights.push({
+            title: "Organization Health",
+            message:
+                `Organization health is currently ${organizationHealth}%. Focus on completing open department tasks.`
+        });
+    }
+
+    const rankings =
+        getDepartmentRankings();
+
+    const lowestDepartment =
+        rankings[rankings.length - 1];
+
+    if (lowestDepartment) {
+        insights.push({
+            title: "Primary Bottleneck",
+            message:
+                `${lowestDepartment.name} has the lowest performance rating and needs priority support.`
+        });
+    }
+
+    const priorityProject =
+        CALYXR.projects.find(
+            project => project.priority === "High"
+        );
+
+    if (priorityProject) {
+        insights.push({
+            title: "Priority Project",
+            message:
+                `${priorityProject.name} remains a high-priority initiative owned by ${priorityProject.owner}.`
+        });
+    }
+
+    return insights;
+}
+
+function generateStrategicDirectives() {
+    const directives = [];
+
+    const taurus =
+        CALYXR.agents.find(agent => agent.name === "TAURUS");
+
+    const virgo =
+        CALYXR.agents.find(agent => agent.name === "VIRGO");
+
+    if (
+        taurus &&
+        virgo &&
+        taurus.workload >= 70 &&
+        virgo.workload <= 30
+    ) {
+        directives.push({
+            id: "001",
+            title: "Resource Reallocation",
+            message:
+                "Assign research and documentation responsibilities to VIRGO."
+        });
+    }
+
+    const organizationHealth =
+        calculateOrganizationHealth();
+
+    if (organizationHealth < 25) {
+        directives.push({
+            id: "002",
+            title: "Health Recovery",
+            message:
+                "Increase organization health above 25% before the next sprint."
+        });
+    }
+
+    return directives;
+}
+
+function renderExecutiveInsights() {
+    const container =
+        document.getElementById(
+            "executive-insights-container"
+        );
+
+    if (!container) {
+        return;
+    }
+
+    container.innerHTML = "";
+
+    const insights =
+        generateExecutiveInsights();
+
+    insights.forEach(insight => {
+        const card =
+            document.createElement("div");
+
+        card.classList.add("executive-insight-card");
+
+        card.innerHTML = `
+            <h4>${insight.title}</h4>
+            <p>${insight.message}</p>
+        `;
+
+        container.appendChild(card);
+    });
+}
+
+function renderStrategicDirectives() {
+    const container =
+        document.getElementById(
+            "strategic-directives-container"
+        );
+
+    if (!container) {
+        return;
+    }
+
+    container.innerHTML = "";
+
+    const directives =
+        generateStrategicDirectives();
+
+    directives.forEach(directive => {
+        const card =
+            document.createElement("div");
+
+        card.classList.add("directive-card");
+
+        card.innerHTML = `
+            <h4>Directive #${directive.id}</h4>
+            <strong>${directive.title}</strong>
+            <p>${directive.message}</p>
+        `;
+
+        container.appendChild(card);
+    });
+}
+
 function renderAgentRecommendations() {
   const container = document.getElementById("agent-recommendations-container");
 
@@ -1063,3 +1208,5 @@ renderAgentStatus();
 renderExecutiveAlerts();
 renderAgentRecommendations();
 renderDepartmentInsights();
+renderExecutiveInsights();
+renderStrategicDirectives();
