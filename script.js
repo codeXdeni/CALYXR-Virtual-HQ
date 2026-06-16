@@ -1106,45 +1106,46 @@ function generateStrategicDirectives() {
 }
 
 function generateMissionBriefings() {
+    return CALYXR.agents.map(agent => {
+        const relatedProject =
+            CALYXR.projects.find(
+                project => project.owner === agent.name
+            );
 
-    return [
+        const tasks =
+            agentTasks[agent.name] || [];
 
-        {
-            department: "ARIES",
+        const completedTasks =
+            tasks.filter(task => task.completed).length;
+
+        const progress =
+            relatedProject
+                ? relatedProject.progress
+                : Math.round(
+                    (completedTasks / tasks.length) * 100
+                );
+
+        return {
+            department: agent.name,
+
             mission:
-                "Coordinate executive direction and monitor organization health.",
-            priority: "High"
-        },
+                relatedProject
+                    ? `Advance ${relatedProject.name}`
+                    : `Support ${agent.assignment}`,
 
-        {
-            department: "TAURUS",
-            mission:
-                "Advance Budgeting App MVP development.",
-            priority: "High"
-        },
+            progress: progress,
 
-        {
-            department: "VIRGO",
-            mission:
-                "Support research and documentation initiatives.",
-            priority: "Medium"
-        },
+            priority: agent.priority,
 
-        {
-            department: "LIBRA",
-            mission:
-                "Develop budgeting and financial planning assets.",
-            priority: "Medium"
-        },
+            assignment: agent.assignment,
 
-        {
-            department: "SAGITTARIUS",
-            mission:
-                "Expand long-term business strategy and roadmap planning.",
-            priority: "High"
-        }
+            workload: agent.workload,
 
-    ];
+            completedTasks: completedTasks,
+
+            totalTasks: tasks.length
+        };
+    });
 }
 
 function renderExecutiveInsights() {
@@ -1242,8 +1243,30 @@ function renderMissionBriefings() {
             </p>
 
             <p>
+                <strong>Progress:</strong>
+                ${briefing.progress}%
+            </p>
+
+            <div class="mission-progress-bar">
+                <div
+                    class="mission-progress-fill"
+                    style="width:${briefing.progress}%">
+                </div>
+            </div>
+
+            <p>
                 <strong>Priority:</strong>
                 ${briefing.priority}
+            </p>
+
+            <p>
+                <strong>Workload:</strong>
+                ${briefing.workload}%
+            </p>
+
+            <p>
+                <strong>Tasks:</strong>
+                ${briefing.completedTasks}/${briefing.totalTasks}
             </p>
         `;
 
