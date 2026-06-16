@@ -376,6 +376,7 @@ function renderTaskBoard() {
       renderDepartmentInsights();
       renderExecutiveInsights();
       renderStrategicDirectives();
+      renderMissionBriefings();
     });
   });
 }
@@ -1104,6 +1105,48 @@ function generateStrategicDirectives() {
     return directives;
 }
 
+function generateMissionBriefings() {
+
+    return [
+
+        {
+            department: "ARIES",
+            mission:
+                "Coordinate executive direction and monitor organization health.",
+            priority: "High"
+        },
+
+        {
+            department: "TAURUS",
+            mission:
+                "Advance Budgeting App MVP development.",
+            priority: "High"
+        },
+
+        {
+            department: "VIRGO",
+            mission:
+                "Support research and documentation initiatives.",
+            priority: "Medium"
+        },
+
+        {
+            department: "LIBRA",
+            mission:
+                "Develop budgeting and financial planning assets.",
+            priority: "Medium"
+        },
+
+        {
+            department: "SAGITTARIUS",
+            mission:
+                "Expand long-term business strategy and roadmap planning.",
+            priority: "High"
+        }
+
+    ];
+}
+
 function renderExecutiveInsights() {
     const container =
         document.getElementById(
@@ -1165,6 +1208,50 @@ function renderStrategicDirectives() {
     });
 }
 
+function renderMissionBriefings() {
+
+    const container =
+        document.getElementById(
+            "mission-briefings-container"
+        );
+
+    if (!container) {
+        return;
+    }
+
+    container.innerHTML = "";
+
+    const briefings =
+        generateMissionBriefings();
+
+    briefings.forEach(briefing => {
+
+        const card =
+            document.createElement("div");
+
+        card.classList.add(
+            "mission-card"
+        );
+
+        card.innerHTML = `
+            <h4>${briefing.department}</h4>
+
+            <p>
+                <strong>Mission:</strong>
+                ${briefing.mission}
+            </p>
+
+            <p>
+                <strong>Priority:</strong>
+                ${briefing.priority}
+            </p>
+        `;
+
+        container.appendChild(card);
+
+    });
+}
+
 function renderAgentRecommendations() {
   const container = document.getElementById("agent-recommendations-container");
 
@@ -1210,3 +1297,4 @@ renderAgentRecommendations();
 renderDepartmentInsights();
 renderExecutiveInsights();
 renderStrategicDirectives();
+renderMissionBriefings();
