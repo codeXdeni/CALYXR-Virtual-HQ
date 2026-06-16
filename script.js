@@ -373,6 +373,7 @@ function renderTaskBoard() {
       renderExecutiveAlerts();
       renderDepartments();
       renderAgentRecommendations();
+      renderDepartmentInsights();
     });
   });
 }
@@ -938,6 +939,87 @@ function generateAgentRecommendations() {
   return recommendations;
 }
 
+function renderDepartmentInsights() {
+
+    const container =
+        document.getElementById(
+            "department-insights-container"
+        );
+
+    if (!container) {
+        return;
+    }
+
+    container.innerHTML = "";
+
+    const insights =
+        generateDepartmentInsights();
+
+    insights.forEach(insight => {
+
+        const card =
+            document.createElement("div");
+
+        card.classList.add(
+            "intelligence-card"
+        );
+
+        card.innerHTML = `
+            <h4>${insight.title}</h4>
+            <p>${insight.message}</p>
+        `;
+
+        container.appendChild(card);
+
+    });
+}
+
+function generateDepartmentInsights() {
+
+    const insights = [];
+
+    const taurus =
+        CALYXR.agents.find(
+            agent => agent.name === "TAURUS"
+        );
+
+    const virgo =
+        CALYXR.agents.find(
+            agent => agent.name === "VIRGO"
+        );
+
+    const libra =
+        CALYXR.agents.find(
+            agent => agent.name === "LIBRA"
+        );
+
+    if (
+        taurus &&
+        virgo &&
+        taurus.workload >= 70 &&
+        virgo.workload <= 30
+    ) {
+        insights.push({
+            title: "Resource Allocation",
+            message:
+                "Move documentation and research tasks from TAURUS to VIRGO."
+        });
+    }
+
+    if (
+        libra &&
+        libra.workload <= 20
+    ) {
+        insights.push({
+            title: "Financial Opportunity",
+            message:
+                "LIBRA has available capacity for budgeting and financial planning."
+        });
+    }
+
+    return insights;
+}
+
 function renderAgentRecommendations() {
   const container = document.getElementById("agent-recommendations-container");
 
@@ -980,3 +1062,4 @@ renderActivityFeed();
 renderAgentStatus();
 renderExecutiveAlerts();
 renderAgentRecommendations();
+renderDepartmentInsights();

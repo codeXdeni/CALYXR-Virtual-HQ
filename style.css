@@ -1085,3 +1085,21 @@ body {
 .recommendation-card.opportunity {
     border-left: 6px solid #66d17a;
 }
+
+.intelligence-card {
+
+    margin: 12px 0;
+    padding: 18px;
+
+    border-radius: 12px;
+
+    background: rgba(255,255,255,0.85);
+
+    border-left: 6px solid #4da6ff;
+
+    backdrop-filter: blur(6px);
+}
+
+.intelligence-card h4 {
+    margin-bottom: 8px;
+}
