@@ -1105,6 +1105,48 @@ function generateStrategicDirectives() {
     return directives;
 }
 
+function getDepartmentObjectives(
+    department
+) {
+
+    const objectives = {
+
+        ARIES: [
+            "Improve organization health",
+            "Monitor departments",
+            "Execute strategic directives"
+        ],
+
+        TAURUS: [
+            "Complete Dashboard UI",
+            "Build Budget Categories",
+            "Add Savings Calculator"
+        ],
+
+        VIRGO: [
+            "Expand Knowledge Vault",
+            "Research Oregon Businesses",
+            "Document AI Ecosystem"
+        ],
+
+        LIBRA: [
+            "Create Budget Strategy",
+            "Develop Emergency Fund Plan",
+            "Reduce Debt Roadmap"
+        ],
+
+        SAGITTARIUS: [
+            "Build Career Roadmap",
+            "Develop Business Strategy",
+            "Expand AI Ecosystem Plan"
+        ]
+    };
+
+    return objectives[
+        department
+    ] || [];
+}
+
 function generateMissionBriefings() {
     return CALYXR.agents.map(agent => {
         const relatedProject =
@@ -1136,6 +1178,11 @@ function generateMissionBriefings() {
             progress: progress,
 
             priority: agent.priority,
+            
+            objectives:
+                getDepartmentObjectives(
+                    agent.name
+                ),
 
             assignment: agent.assignment,
 
@@ -1144,6 +1191,8 @@ function generateMissionBriefings() {
             completedTasks: completedTasks,
 
             totalTasks: tasks.length
+
+            
         };
     });
 }
@@ -1241,6 +1290,21 @@ function renderMissionBriefings() {
                 <strong>Mission:</strong>
                 ${briefing.mission}
             </p>
+
+            <p>
+                <strong>Objectives:</strong>
+            </p>
+
+            <ul class="objective-list">
+                ${
+                    briefing.objectives
+                        .map(
+                            objective =>
+                                `<li>${objective}</li>`
+                        )
+                        .join("")
+                }
+            </ul>
 
             <p>
                 <strong>Progress:</strong>

@@ -1162,3 +1162,18 @@ body {
     border-radius: 999px;
     background: #4da6ff;
 }
+
+.objective-list {
+
+    margin: 10px auto;
+
+    width: fit-content;
+
+    text-align: left;
+}
+
+.objective-list li {
+
+    margin: 6px 0;
+}
+
