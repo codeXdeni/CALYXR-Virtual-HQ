@@ -1177,3 +1177,7 @@ body {
     margin: 6px 0;
 }
 
+.mission-indicator {
+    margin: 6px 0 10px;
+    font-weight: 700;
+}

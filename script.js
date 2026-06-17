@@ -1147,6 +1147,22 @@ function getDepartmentObjectives(
     ] || [];
 }
 
+function getDepartmentIndicator(briefing) {
+    if (briefing.workload >= 80) {
+        return "🟠 Overloaded";
+    }
+
+    if (briefing.progress < 25) {
+        return "🔴 Critical";
+    }
+
+    if (briefing.progress < 60) {
+        return "🟡 Monitoring";
+    }
+
+    return "🟢 Operational";
+}
+
 function generateMissionBriefings() {
     return CALYXR.agents.map(agent => {
         const relatedProject =
@@ -1187,6 +1203,11 @@ function generateMissionBriefings() {
             assignment: agent.assignment,
 
             workload: agent.workload,
+
+            indicator: getDepartmentIndicator({
+                workload: agent.workload,
+                progress: progress
+            }),
 
             completedTasks: completedTasks,
 
@@ -1285,6 +1306,10 @@ function renderMissionBriefings() {
 
         card.innerHTML = `
             <h4>${briefing.department}</h4>
+
+            <p class="mission-indicator">
+                ${briefing.indicator}
+            </p>
 
             <p>
                 <strong>Mission:</strong>
