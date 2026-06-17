@@ -143,16 +143,17 @@ Build Agent Intelligence Layer
 ✓ Department Mission Briefings v0.7.0
 ✓ Dynamic Mission Generation v0.7.1
 ✓ Mission Progress Bars
+✓ Department Objectives v0.7.2
 
 #### In Progress
 
-• Department Objectives v0.7.2
+• Department Status Indicators v0.7.3
 
 #### Upcoming
 
 • Department KPIs
-• Agent Notes System
 • Cross-Department Collaboration
+• Agent Notes System
 
 ### v0.8
 
