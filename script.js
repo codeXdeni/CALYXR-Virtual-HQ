@@ -3,10 +3,43 @@ const metrics = {
   projects: 3
 };
 
-function calculateDepartmentPerformance(tasks) {
-  const completedTasks = tasks.filter(task => task.completed).length;
+function calculateCompletionRate(completed, total) {
+    if (total === 0) return 0;
+    return Math.round((completed / total) * 100);
+}
 
-  return Math.round((completedTasks / tasks.length) * 100);
+function getPerformanceGrade(rate) {
+    if (rate >= 90) return "A";
+    if (rate >= 75) return "B";
+    if (rate >= 50) return "C";
+    if (rate >= 25) return "D";
+    return "F";
+}
+
+function getRiskLevel(workload, progress) {
+    if (workload >= 80 && progress < 50) {
+        return "High";
+    }
+
+    if (progress < 60) {
+        return "Medium";
+    }
+
+    return "Low";
+}
+
+function calculateDepartmentPerformance(tasks) {
+
+    if (tasks.length === 0) {
+        return 0;
+    }
+
+    const completedTasks =
+        tasks.filter(task => task.completed).length;
+
+    return Math.round(
+        (completedTasks / tasks.length) * 100
+    );
 }
 
 function getDepartmentRankings() {
@@ -1174,46 +1207,51 @@ function generateMissionBriefings() {
             agentTasks[agent.name] || [];
 
         const completedTasks =
-            tasks.filter(task => task.completed).length;
+          tasks.filter(task => task.completed).length;
 
         const progress =
-            relatedProject
-                ? relatedProject.progress
-                : Math.round(
-                    (completedTasks / tasks.length) * 100
-                );
+          relatedProject
+            ? relatedProject.progress
+            : calculateCompletionRate(
+                completedTasks,
+                tasks.length
+              );
+
+        const completionRate =
+          calculateCompletionRate(
+            completedTasks,
+            tasks.length
+          );
+
+        const performanceGrade =
+          getPerformanceGrade(completionRate);
+
+        const riskLevel =
+          getRiskLevel(
+            agent.workload,
+            progress
+          );
 
         return {
-            department: agent.name,
-
-            mission:
-                relatedProject
-                    ? `Advance ${relatedProject.name}`
-                    : `Support ${agent.assignment}`,
-
-            progress: progress,
-
-            priority: agent.priority,
-            
-            objectives:
-                getDepartmentObjectives(
-                    agent.name
-                ),
-
-            assignment: agent.assignment,
-
+          department: agent.name,
+          mission:
+            relatedProject
+              ? `Advance ${relatedProject.name}`
+              : `Support ${agent.assignment}`,
+          progress: progress,
+          priority: agent.priority,
+          objectives: getDepartmentObjectives(agent.name),
+          assignment: agent.assignment,
+          workload: agent.workload,
+          indicator: getDepartmentIndicator({
             workload: agent.workload,
-
-            indicator: getDepartmentIndicator({
-                workload: agent.workload,
-                progress: progress
-            }),
-
-            completedTasks: completedTasks,
-
-            totalTasks: tasks.length
-
-            
+            progress: progress
+          }),
+          completionRate: completionRate,
+          performanceGrade: performanceGrade,
+          riskLevel: riskLevel,
+          completedTasks: completedTasks,
+          totalTasks: tasks.length
         };
     });
 }
@@ -1356,6 +1394,21 @@ function renderMissionBriefings() {
             <p>
                 <strong>Tasks:</strong>
                 ${briefing.completedTasks}/${briefing.totalTasks}
+            </p>
+
+            <p>
+                <strong>Completion Rate:</strong>
+                ${briefing.completionRate}%
+            </p>
+
+            <p>
+                <strong>Performance Grade:</strong>
+                ${briefing.performanceGrade}
+            </p>
+
+            <p>
+                <strong>Risk Level:</strong>
+                ${briefing.riskLevel}
             </p>
         `;
 
