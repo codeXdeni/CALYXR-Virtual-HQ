@@ -144,16 +144,17 @@ Build Agent Intelligence Layer
 ✓ Dynamic Mission Generation v0.7.1
 ✓ Mission Progress Bars
 ✓ Department Objectives v0.7.2
+✓ Department Status Indicators
+✓ Department KPI System v0.7.4
 
 #### In Progress
 
-• Department Status Indicators v0.7.3
+• Cross Department Collaboration v0.7.5
 
 #### Upcoming
 
-• Department KPIs
-• Cross-Department Collaboration
 • Agent Notes System
+• Agent Memory Layer
 
 ### v0.8
 
