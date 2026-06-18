@@ -1194,3 +1194,41 @@ body {
     margin-bottom: 8px;
     color: #165c38;
 }
+
+.decision-card {
+
+    background: rgba(
+        255,
+        255,
+        255,
+        0.85
+    );
+
+    border-left: 6px solid #2f855a;
+
+    padding: 16px;
+
+    margin: 12px 0;
+
+    border-radius: 12px;
+}
+
+.decision-card h4 {
+
+    color: #1f5d3f;
+
+    margin-bottom: 8px;
+}
+
+#department-details {
+    margin-top: 18px;
+    padding: 18px;
+    border-radius: 14px;
+    background: rgba(255,255,255,0.75);
+    backdrop-filter: blur(6px);
+}
+
+#department-details h3 {
+    color: #165c38;
+    margin-bottom: 8px;
+}

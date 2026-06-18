@@ -411,6 +411,8 @@ function renderTaskBoard() {
       renderStrategicDirectives();
       renderMissionBriefings();
       renderCollaborations();
+      renderExecutiveDecisions();
+      renderDepartmentCommandConsole();
     });
   });
 }
@@ -533,7 +535,20 @@ function renderRankings() {
 
         rankingCard.classList.add("active");
 
+        localStorage.setItem(
+            "selectedDepartment",
+            department.name
+        );
+    
+    const savedDepartment =
+    localStorage.getItem("selectedDepartment");
+
+    if (savedDepartment === department.name) {
+        rankingCard.classList.add("active");
+    }
+    
         renderDepartmentDetails(department.name);
+        renderDepartmentCommandConsole(department.name);
     });
   });
 }
@@ -1057,6 +1072,118 @@ function generateDepartmentInsights() {
     return insights;
 }
 
+function generateDepartmentCommandProfile(departmentName) {
+    const agent =
+        CALYXR.agents.find(agent => agent.name === departmentName);
+
+    if (!agent) {
+        return null;
+    }
+
+    const relatedProject =
+        CALYXR.projects.find(project => project.owner === departmentName);
+
+    const tasks =
+        agentTasks[departmentName] || [];
+
+    const completedTasks =
+        tasks.filter(task => task.completed).length;
+
+    const completionRate =
+        calculateCompletionRate(completedTasks, tasks.length);
+
+    const progress =
+        relatedProject
+            ? relatedProject.progress
+            : completionRate;
+
+    const indicator =
+        getDepartmentIndicator({
+            workload: agent.workload,
+            progress: progress
+        });
+
+    const riskLevel =
+        getRiskLevel(agent.workload, progress);
+
+    const objectives =
+        getDepartmentObjectives(departmentName);
+
+    return {
+        department: departmentName,
+        role: agent.role,
+        assignment: agent.assignment,
+        mission: relatedProject
+            ? `Advance ${relatedProject.name}`
+            : `Support ${agent.assignment}`,
+        progress,
+        priority: agent.priority,
+        workload: agent.workload,
+        completedTasks,
+        totalTasks: tasks.length,
+        completionRate,
+        performanceGrade: getPerformanceGrade(completionRate),
+        riskLevel,
+        indicator,
+        objectives
+    };
+}
+
+function renderDepartmentCommandConsole(departmentName) {
+    const container =
+        document.getElementById("department-details");
+
+    if (!container) {
+        return;
+    }
+
+    const profile =
+        generateDepartmentCommandProfile(departmentName);
+
+    if (!profile) {
+        container.innerHTML = `
+            <h3>Select a Department</h3>
+            <p>Click a department ranking to view command details.</p>
+        `;
+        return;
+    }
+
+    container.innerHTML = `
+        <h3>${profile.department}</h3>
+
+        <p class="mission-indicator">
+            ${profile.indicator}
+        </p>
+
+        <p><strong>Role:</strong> ${profile.role}</p>
+        <p><strong>Mission:</strong> ${profile.mission}</p>
+        <p><strong>Assignment:</strong> ${profile.assignment}</p>
+        <p><strong>Priority:</strong> ${profile.priority}</p>
+        <p><strong>Workload:</strong> ${profile.workload}%</p>
+        <p><strong>Progress:</strong> ${profile.progress}%</p>
+        <p><strong>Completion Rate:</strong> ${profile.completionRate}%</p>
+        <p><strong>Performance Grade:</strong> ${profile.performanceGrade}</p>
+        <p><strong>Risk Level:</strong> ${profile.riskLevel}</p>
+
+        <div class="mission-progress-bar">
+            <div
+                class="mission-progress-fill"
+                style="width:${profile.progress}%">
+            </div>
+        </div>
+
+        <h4>Objectives</h4>
+
+        <ul class="objective-list">
+            ${
+                profile.objectives
+                    .map(objective => `<li>${objective}</li>`)
+                    .join("")
+            }
+        </ul>
+    `;
+}
+
 function generateExecutiveInsights() {
     const insights = [];
 
@@ -1373,6 +1500,114 @@ function renderExecutiveInsights() {
     });
 }
 
+function generateExecutiveDecisions() {
+    const decisions = [];
+
+    const taurus =
+        CALYXR.agents.find(
+            agent => agent.name === "TAURUS"
+        );
+
+    const virgo =
+        CALYXR.agents.find(
+            agent => agent.name === "VIRGO"
+        );
+
+    const libra =
+        CALYXR.agents.find(
+            agent => agent.name === "LIBRA"
+        );
+
+    const sagittarius =
+        CALYXR.agents.find(
+            agent => agent.name === "SAGITTARIUS"
+        );
+
+    if (
+        taurus.workload > 70 &&
+        virgo.workload < 40
+    ) {
+        decisions.push({
+            title:
+                "Resource Reallocation",
+            decision:
+                "Transfer research and documentation support from TAURUS to VIRGO.",
+            impact:
+                "+15% operational efficiency"
+        });
+    }
+
+    if (
+        libra.workload < 30
+    ) {
+        decisions.push({
+            title:
+                "Financial Expansion",
+            decision:
+                "Assign budgeting and financial forecasting tasks to LIBRA.",
+            impact:
+                "+10% planning capacity"
+        });
+    }
+
+    if (
+        sagittarius.workload < 35
+    ) {
+        decisions.push({
+            title:
+                "Strategic Initiative",
+            decision:
+                "Allocate new roadmap and growth planning projects to SAGITTARIUS.",
+            impact:
+                "+20% strategic output"
+        });
+    }
+
+    return decisions;
+}
+
+function renderExecutiveDecisions() {
+
+    const container =
+        document.getElementById(
+            "executive-decisions-container"
+        );
+
+    if (!container) return;
+
+    container.innerHTML = "";
+
+    const decisions =
+        generateExecutiveDecisions();
+
+    decisions.forEach(
+        decision => {
+
+            const card =
+                document.createElement("div");
+
+            card.classList.add(
+                "decision-card"
+            );
+
+            card.innerHTML = `
+                <h4>${decision.title}</h4>
+
+                <p>${decision.decision}</p>
+
+                <p>
+                    <strong>
+                    Impact:
+                    </strong>
+                    ${decision.impact}
+                </p>
+            `;
+
+            container.appendChild(card);
+        }
+    );
+}
+
 function renderStrategicDirectives() {
     const container =
         document.getElementById(
@@ -1551,3 +1786,9 @@ renderExecutiveInsights();
 renderStrategicDirectives();
 renderMissionBriefings();
 renderCollaborations();
+renderExecutiveDecisions();
+
+const savedDepartment =
+    localStorage.getItem("selectedDepartment");
+
+renderDepartmentCommandConsole(savedDepartment);
