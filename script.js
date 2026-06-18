@@ -413,6 +413,7 @@ function renderTaskBoard() {
       renderCollaborations();
       renderExecutiveDecisions();
       renderDepartmentCommandConsole();
+      renderExecutiveDashboard();
     });
   });
 }
@@ -546,7 +547,7 @@ function renderRankings() {
     if (savedDepartment === department.name) {
         rankingCard.classList.add("active");
     }
-    
+
         renderDepartmentDetails(department.name);
         renderDepartmentCommandConsole(department.name);
     });
@@ -1184,6 +1185,72 @@ function renderDepartmentCommandConsole(departmentName) {
     `;
 }
 
+function generateExecutiveDashboard() {
+
+    const organizationHealth =
+        calculateOrganizationHealth();
+
+    const rankings =
+        getDepartmentRankings();
+
+    const topDepartment =
+        rankings[0];
+
+    const weakestDepartment =
+        rankings[rankings.length - 1];
+
+    const activeProjects =
+        CALYXR.projects.filter(
+            project => project.status !== "Completed"
+        ).length;
+
+    return {
+        organizationHealth,
+        topDepartment,
+        weakestDepartment,
+        activeProjects
+    };
+}
+
+function renderExecutiveDashboard() {
+
+    const container =
+        document.getElementById(
+            "executive-dashboard"
+        );
+
+    if (!container) return;
+
+    const dashboard =
+        generateExecutiveDashboard();
+
+    container.innerHTML = `
+    <div class="kpi-grid">
+
+        <div class="kpi-card">
+            <h4>Health</h4>
+            <span>${dashboard.organizationHealth}%</span>
+        </div>
+
+        <div class="kpi-card">
+            <h4>Projects</h4>
+            <span>${dashboard.activeProjects}</span>
+        </div>
+
+        <div class="kpi-card">
+            <h4>Top Dept</h4>
+            <span>${dashboard.topDepartment.name}</span>
+        </div>
+
+        <div class="kpi-card">
+            <h4>Risk</h4>
+            <span>${dashboard.weakestDepartment.name}</span>
+        </div>
+
+    </div>
+    `;
+}
+
 function generateExecutiveInsights() {
     const insights = [];
 
@@ -1792,3 +1859,5 @@ const savedDepartment =
     localStorage.getItem("selectedDepartment");
 
 renderDepartmentCommandConsole(savedDepartment);
+
+renderExecutiveDashboard();

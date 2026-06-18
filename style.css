@@ -1232,3 +1232,61 @@ body {
     color: #165c38;
     margin-bottom: 8px;
 }
+
+.executive-summary {
+    text-align: center;
+    padding: 20px;
+}
+
+.executive-summary h3 {
+    color: #165c38;
+    margin-bottom: 12px;
+}
+
+.executive-summary p {
+    margin: 8px 0;
+    font-size: 1.05rem;
+}
+
+.kpi-grid {
+    display: grid;
+    grid-template-columns:
+        repeat(auto-fit, minmax(220px, 1fr));
+
+    gap: 16px;
+    margin-top: 20px;
+}
+
+.kpi-card {
+    background: rgba(255,255,255,0.75);
+    padding: 20px;
+    border-radius: 14px;
+    text-align: center;
+
+    border-left: 5px solid #165c38;
+
+    backdrop-filter: blur(6px);
+}
+
+.kpi-card h4 {
+    margin-bottom: 10px;
+    color: #165c38;
+}
+
+.kpi-card span {
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+.kpi-card span {
+    font-size: 1.6rem;
+    font-weight: bold;
+    display: block;
+    word-break: break-word;
+}
+
+.executive-dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
