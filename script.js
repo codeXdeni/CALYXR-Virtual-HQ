@@ -410,6 +410,7 @@ function renderTaskBoard() {
       renderExecutiveInsights();
       renderStrategicDirectives();
       renderMissionBriefings();
+      renderCollaborations();
     });
   });
 }
@@ -1256,6 +1257,92 @@ function generateMissionBriefings() {
     });
 }
 
+function generateCollaborations() {
+
+    const collaborations = [];
+
+    CALYXR.agents.forEach(agent => {
+
+        if (
+            agent.name === "TAURUS" &&
+            agent.workload >= 70
+        ) {
+            collaborations.push({
+                from: "TAURUS",
+                to: "VIRGO",
+                message:
+                    "Research support requested for Budgeting App MVP."
+            });
+        }
+
+        if (
+            agent.name === "ARIES"
+        ) {
+            collaborations.push({
+                from: "ARIES",
+                to: "SAGITTARIUS",
+                message:
+                    "Strategic roadmap review requested."
+            });
+        }
+
+        if (
+            agent.name === "LIBRA"
+        ) {
+            collaborations.push({
+                from: "LIBRA",
+                to: "TAURUS",
+                message:
+                    "Budget planning support available."
+            });
+        }
+
+    });
+
+    return collaborations;
+}
+
+function renderCollaborations() {
+
+    const container =
+        document.getElementById(
+            "collaboration-container"
+        );
+
+    if (!container) {
+        return;
+    }
+
+    container.innerHTML = "";
+
+    const collaborations =
+        generateCollaborations();
+
+    collaborations.forEach(item => {
+
+        const card =
+            document.createElement("div");
+
+        card.classList.add(
+            "collaboration-card"
+        );
+
+        card.innerHTML = `
+            <h4>
+                ${item.from}
+                →
+                ${item.to}
+            </h4>
+
+            <p>
+                ${item.message}
+            </p>
+        `;
+
+        container.appendChild(card);
+    });
+}
+
 function renderExecutiveInsights() {
     const container =
         document.getElementById(
@@ -1463,3 +1550,4 @@ renderDepartmentInsights();
 renderExecutiveInsights();
 renderStrategicDirectives();
 renderMissionBriefings();
+renderCollaborations();
