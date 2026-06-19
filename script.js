@@ -526,6 +526,13 @@ function renderRankings() {
       </div>
     `;
 
+    const savedDepartment =
+        localStorage.getItem("selectedDepartment");
+
+    if (savedDepartment === department.name) {
+        rankingCard.classList.add("active");
+    }
+
     rankingsContainer.appendChild(rankingCard);
 
     rankingCard.addEventListener("click", () => {
@@ -540,16 +547,12 @@ function renderRankings() {
             "selectedDepartment",
             department.name
         );
-    
-    const savedDepartment =
-    localStorage.getItem("selectedDepartment");
 
-    if (savedDepartment === department.name) {
-        rankingCard.classList.add("active");
-    }
+        const savedDepartment =
+            localStorage.getItem("selectedDepartment");
 
+        renderDepartmentCommandConsole(savedDepartment);
         renderDepartmentDetails(department.name);
-        renderDepartmentCommandConsole(department.name);
     });
   });
 }
@@ -1834,6 +1837,57 @@ function renderAgentRecommendations() {
   });
 }
 
+function switchExecutiveTab(tabName) {
+    document
+        .querySelectorAll(".tab-content")
+        .forEach(tab => {
+            tab.classList.remove("active");
+        });
+
+    document
+        .querySelectorAll(".tab-button")
+        .forEach(button => {
+            button.classList.remove("active");
+        });
+
+    const selectedTab =
+        document.getElementById(`${tabName}-tab`);
+
+    const selectedButton =
+        document.querySelector(
+            `.tab-button[data-tab="${tabName}"]`
+        );
+
+    if (selectedTab) {
+        selectedTab.classList.add("active");
+    }
+
+    if (selectedButton) {
+        selectedButton.classList.add("active");
+    }
+
+    localStorage.setItem("activeExecutiveTab", tabName);
+}
+
+function initializeExecutiveTabs() {
+    const savedTab =
+        localStorage.getItem("activeExecutiveTab") ||
+        "dashboard";
+
+    document
+        .querySelectorAll(".tab-button")
+        .forEach(button => {
+            button.addEventListener("click", () => {
+                const tabName =
+                    button.dataset.tab;
+
+                switchExecutiveTab(tabName);
+            });
+        });
+
+    switchExecutiveTab(savedTab);
+}
+
 loadData();
 
 renderTopMetrics();
@@ -1861,3 +1915,5 @@ const savedDepartment =
 renderDepartmentCommandConsole(savedDepartment);
 
 renderExecutiveDashboard();
+
+initializeExecutiveTabs();

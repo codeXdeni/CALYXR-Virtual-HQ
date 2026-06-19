@@ -49,6 +49,122 @@
 
                 </section>
 
+            </section>
+
+            <nav class="executive-nav">
+                <button class="tab-button active" data-tab="dashboard">
+                    Dashboard
+                </button>
+
+                <button class="tab-button" data-tab="departments">
+                    Departments
+                </button>
+
+                <button class="tab-button" data-tab="agents">
+                    Agents
+                </button>
+
+                <button class="tab-button" data-tab="operations">
+                    Operations
+                </button>
+            </nav>
+
+            <section id="dashboard-tab" class="tab-content active">
+                <section class="panel">
+                    <h2>ARIES Executive Dashboard</h2>
+
+                    <div id="executive-dashboard"></div>
+                </section>
+
+                <section class="panel">
+                    <h2>Executive Alerts</h2>
+
+                    <div id="alerts-container"></div>
+                </section>
+
+                <section class="department-rankings">
+                    <h2>Department Health Rankings</h2>
+
+                    <div id="rankings-container"></div>
+                </section>
+
+            </section>
+
+            <section id="departments-tab" class="tab-content">
+               
+                <section class="panel">
+                    <h2>Department Command Console</h2>
+
+                    <div id="department-details">
+
+                        <h3>Select a Department</h3>
+
+                        <p>Click a department ranking to view details.</p>
+
+                    </div>
+                </section>
+
+                <section class="agent-status-board">
+
+                    <h2>Department Command Status</h2>
+
+                    <div class="department-status-grid" id="department-status-container"></div>
+
+                </section>
+
+                <section class="panel">
+                    <h2>Department Intelligence</h2>
+
+                    <div id="department-insights-container"></div>
+                </section>
+
+                <section class="panel collaboration-panel">
+                    <h2>Cross Department Collaboration</h2>
+
+                    <div id="collaboration-container">
+                    </div>
+                </section>
+
+                <section class="panel">
+                    <h2>Department Mission Briefings</h2>
+
+                    <div id="mission-briefings-container"></div>
+                </section>
+
+            </section>
+
+            <section id="agents-tab" class="tab-content">
+                
+                <section class="panel">
+                    <h2>Agent Recommendations</h2>
+                    <div id="agent-recommendations-container"></div>
+                </section>
+
+                <section class="agent-command-center">
+                    <h2>Agent Command Center</h2>
+
+                    <div id="agent-status-container"></div>
+                </section>
+
+                <section class="task-board">
+                    <h2>Agent Task Board</h2>
+
+                    <div id="task-container"></div>
+
+                </section>
+
+            </section>
+
+            <section id="operations-tab" class="tab-content">
+                
+                <section class="executive-metrics">
+
+                    <h2>Executive Metrics</h2>
+
+                    <div id="metrics-container"></div>
+
+                </section>
+                
                 <section class="metrics-panel">
 
                     <div class="metric-card">
@@ -73,12 +189,10 @@
 
                 </section>
 
-                <section class="agent-status-board">
+                <section class="executive-brief">
+                    <h2>ARIES Executive Brief</h2>
 
-                    <h2>Department Command Status</h2>
-
-                    <div class="department-status-grid" id="department-status-container"></div>
-
+                    <div id="executive-brief-container"></div>
                 </section>
 
                 <section class="roadmap-panel">
@@ -89,68 +203,59 @@
 
                 </section>
 
-                <section class="executive-metrics">
+                <section class="project-tracker">
 
-                    <h2>Executive Metrics</h2>
+                    <h2>Active Project Tracker</h2>
 
-                    <div id="metrics-container"></div>
+                    <div id="project-tracker-container"></div>
 
                 </section>
 
-                <section class="executive-brief">
-                    <h2>ARIES Executive Brief</h2>
+                <section class="activity-feed">
+                    <h2>Executive Activity Feed</h2>
+                    <div id="activity-container"></div>
 
-                    <div id="executive-brief-container"></div>
+                </section>
+                
+                <section class="campus-title">
+                    <p class="eyebrow">HEADQUARTERS DISTRICT</p>
+
+                    <h2>Founding Agent Offices</h2>
                 </section>
 
-                <section class="panel">
-                    <h2>ARIES Executive Dashboard</h2>
-                    
-                    <div id="executive-dashboard"></div>
+                <section class="campus-map">
+                                
+                    <a href="pages/aries.html" class="agent-card building aries tower">
+                        <h2>ARIES</h2>
+                        <p>Adaptive Reasoning & Intelligent Executive System</p>
+                        <span>Executive Tower</span>
+                    </a>
+
+                    <a href="pages/taurus.html" class="agent-card building taurus dev-wing">
+                        <h2>TAURUS</h2>
+                        <p>Technical Architecture & Unified Resource Utility System</p>
+                        <span>Development Wing</span>
+                    </a>
+
+                    <a href="pages/virgo.html" class="agent-card building virgo library">
+                        <h2>VIRGO</h2>
+                        <p>Verification, Intelligence, Research & Growth Operations</p>
+                        <span>Grand Library</span>
+                    </a>
+
+                    <a href="pages/sagittarius.html" class="agent-card building sagittarius strategy">
+                        <h2>SAGITTARIUS</h2>
+                        <p>Strategic Advancement & Growth Intelligence Through Tactical Analysis, Research, Innovation & Unified Systems</p>
+                        <span>Strategy Chamber</span>
+                    </a>
+
+                    <a href="pages/libra.html" class="agent-card building libra treasury">
+                        <h2>LIBRA</h2>
+                        <p>Logistics, Investment, Budgeting & Resource Allocation</p>
+                        <span>Treasury Hall</span>
+                    </a>
                 </section>
-
-                <section class="panel">
-                    <h2>Executive Alerts</h2>
-
-                    <div id="alerts-container"></div>
-                </section>
-
-                <section class="department-rankings">
-                    <h2>Department Health Rankings</h2>
-
-                    <div id="rankings-container"></div>
-                </section>
-
-                <section class="panel">
-                    <h2>Department Command Console</h2>
-
-                    <div id="department-details">
-
-                        <h3>Select a Department</h3>
-
-                        <p>Click a department ranking to view details.</p>
-
-                    </div>
-                </section>
-
-                <section class="panel">
-                    <h2>Agent Recommendations</h2>
-                    <div id="agent-recommendations-container"></div>
-                </section>
-
-                <section class="panel">
-                    <h2>Department Intelligence</h2>
-
-                    <div id="department-insights-container"></div>
-                </section>
-
-                <section class="panel collaboration-panel">
-                    <h2>Cross Department Collaboration</h2>
-
-                    <div id="collaboration-container">
-                    </div>
-                </section>
-
+                
                 <section class="panel">
                     <h2>Executive Insights</h2>
 
@@ -175,81 +280,11 @@
                     <div id="strategic-directives-container"></div>
                 </section>
 
-                <section class="panel">
-                    <h2>Department Mission Briefings</h2>
-
-                    <div id="mission-briefings-container"></div>
-                </section>
-
-                <section class="activity-feed">
-                    <h2>Executive Activity Feed</h2>
-                    <div id="activity-container"></div>
-
-                </section>
-
-                <section class="agent-command-center">
-                    <h2>Agent Command Center</h2>
-
-                    <div id="agent-status-container"></div>
-                </section>
-
-                <section class="task-board">
-                    <h2>Agent Task Board</h2>
-
-                    <div id="task-container"></div>
-
-                </section>
-            </section>
-
-            <section class="project-tracker">
-
-                <h2>Active Project Tracker</h2>
-
-                <div id="project-tracker-container"></div>
-
             </section>
 
             
+
             
-            <section class="campus-title">
-                <p class="eyebrow">HEADQUARTERS DISTRICT</p>
-                <h2>Founding Agent Offices</h2>
-            </section>
-
-            <section class="campus-map">
-                
-                
-                
-                <a href="pages/aries.html" class="agent-card building aries tower">
-                    <h2>ARIES</h2>
-                    <p>Adaptive Reasoning & Intelligent Executive System</p>
-                    <span>Executive Tower</span>
-                </a>
-
-                <a href="pages/taurus.html" class="agent-card building taurus dev-wing">
-                    <h2>TAURUS</h2>
-                    <p>Technical Architecture & Unified Resource Utility System</p>
-                    <span>Development Wing</span>
-                </a>
-
-                <a href="pages/virgo.html" class="agent-card building virgo library">
-                    <h2>VIRGO</h2>
-                    <p>Verification, Intelligence, Research & Growth Operations</p>
-                    <span>Grand Library</span>
-                </a>
-
-                <a href="pages/sagittarius.html" class="agent-card building sagittarius strategy">
-                    <h2>SAGITTARIUS</h2>
-                    <p>Strategic Advancement & Growth Intelligence Through Tactical Analysis, Research, Innovation & Unified Systems</p>
-                    <span>Strategy Chamber</span>
-                </a>
-
-                <a href="pages/libra.html" class="agent-card building libra treasury">
-                    <h2>LIBRA</h2>
-                    <p>Logistics, Investment, Budgeting & Resource Allocation</p>
-                    <span>Treasury Hall</span>
-                </a>
-            </section>
         </main>
 
         <script src="scripts/data.js"></script>

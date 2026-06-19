@@ -1290,3 +1290,54 @@ body {
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
 }
+
+.executive-nav {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+
+    margin: 30px auto;
+    padding: 14px;
+
+    max-width: 900px;
+
+    background: rgba(255,255,255,0.45);
+    border-radius: 18px;
+
+    backdrop-filter: blur(8px);
+}
+
+.tab-button {
+    padding: 12px 20px;
+
+    border: none;
+    border-radius: 999px;
+
+    background: rgba(255,255,255,0.8);
+
+    color: #165c38;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.tab-button:hover {
+    transform: translateY(-2px);
+    background: rgba(255,255,255,1);
+}
+
+.tab-button.active {
+    background: #165c38;
+    color: white;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
