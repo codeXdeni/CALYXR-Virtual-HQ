@@ -7,6 +7,25 @@ const OFFICE_ROOMS = {
   sagittarius: { id: "sagittarius", label: "Strategy Chamber", top: 480, left: 640, owner: "SAGITTARIUS" }
 };
 
+// Best-guess role archetype per agent, shown as a label and used to pick the
+// sprite image at assets/sprites/<jobType>.png once real sprite art is added.
+// Swap these freely in one place if a different mapping fits better.
+const AGENT_JOB_TYPES = {
+  ARIES: "pm",
+  TAURUS: "dev",
+  VIRGO: "qa",
+  LIBRA: "design",
+  SAGITTARIUS: "intern"
+};
+
+const AGENT_JOB_LABELS = {
+  pm: "PM_Agent",
+  dev: "Dev_Agent",
+  qa: "QA_Agent",
+  design: "Design_Agent",
+  intern: "Intern_Agent"
+};
+
 let officeAgents = [];
 let officeSimulationStarted = false;
 let officeTickInterval = null;
@@ -35,7 +54,15 @@ function buildOfficeMap() {
     roomEl.style.top = `${room.top}px`;
     roomEl.style.left = `${room.left}px`;
 
-    roomEl.innerHTML = `<span class="office-room-label">${room.label}</span>`;
+    roomEl.innerHTML = `
+      <span class="office-room-label">${room.label}</span>
+      ${room.owner ? `
+        <div class="office-desk">
+          <div class="office-monitor"></div>
+        </div>
+        <div class="office-plant"></div>
+      ` : ""}
+    `;
 
     container.appendChild(roomEl);
   });
@@ -88,14 +115,25 @@ function renderOfficeAgents() {
     let sprite = document.getElementById(`office-agent-${agent.name}`);
 
     if (!sprite) {
+      const jobType = AGENT_JOB_TYPES[agent.name];
+
       sprite = document.createElement("div");
       sprite.id = `office-agent-${agent.name}`;
       sprite.classList.add(
         "office-agent",
         `office-agent-${agent.name.toLowerCase()}`
       );
-      sprite.textContent = agent.name.slice(0, 2);
       sprite.title = agent.name;
+
+      // Sprite art (if present) is expected at assets/sprites/<jobType>.png.
+      // Until that file exists this is just a transparent no-op background,
+      // so the colored fallback block + initials below still shows.
+      sprite.style.backgroundImage = `url("assets/sprites/${jobType}.png")`;
+
+      sprite.innerHTML = `
+        <span class="office-agent-label">${AGENT_JOB_LABELS[jobType]}</span>
+        <span class="office-agent-fallback">${agent.name.slice(0, 2)}</span>
+      `;
 
       sprite.addEventListener("click", event => {
         event.stopPropagation();
@@ -109,8 +147,8 @@ function renderOfficeAgents() {
     const occupants = roomOccupants[agent.room];
     const slot = occupants.indexOf(agent.name);
 
-    const offsetX = 20 + (slot % 3) * 36;
-    const offsetY = 50 + Math.floor(slot / 3) * 36;
+    const offsetX = 16 + (slot % 3) * 44;
+    const offsetY = 46 + Math.floor(slot / 3) * 44;
 
     sprite.style.left = `${room.left + offsetX}px`;
     sprite.style.top = `${room.top + offsetY}px`;
@@ -125,12 +163,13 @@ function showOfficeAgentInfo(name, sprite) {
   const status = agentStatus[name];
   const tasks = agentTasks[name] || [];
   const nextTask = tasks.find(t => !t.completed);
+  const jobLabel = AGENT_JOB_LABELS[AGENT_JOB_TYPES[name]];
 
   const tooltip = document.createElement("div");
   tooltip.classList.add("office-tooltip");
 
   tooltip.innerHTML = `
-    <h4>${name}</h4>
+    <h4>${name} <span class="office-tooltip-job">${jobLabel}</span></h4>
     <p><strong>Role:</strong> ${status ? status.role : "—"}</p>
     <p><strong>Status:</strong> ${status ? status.status : "—"}</p>
     <p><strong>Task:</strong> ${nextTask ? nextTask.task : "All caught up"}</p>

@@ -1,4 +1,9 @@
 .vscode/
 node_modules/
 .DS_Store
-Thumbs.dbgit
+Thumbs.db
+
+# Licensed sprite art (CraftPix free license forbids redistributing the raw
+# files) - keep locally, never commit. See assets/sprites/README.md.
+assets/sprites/*.png
+assets/sprites/*.jpg

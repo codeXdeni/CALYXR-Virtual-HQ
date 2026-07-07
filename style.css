@@ -1408,6 +1408,41 @@ body {
   border-color: #c0562f;
 }
 
+.office-desk {
+  position: absolute;
+  bottom: 14px;
+  right: 14px;
+  width: 60px;
+  height: 24px;
+
+  background: #6b4a2f;
+  border: 2px solid #14161a;
+}
+
+.office-monitor {
+  position: absolute;
+  top: -16px;
+  right: 6px;
+  width: 20px;
+  height: 14px;
+
+  background: #14161a;
+  border: 2px solid #3a3f47;
+  box-shadow: 0 0 6px rgba(120, 200, 255, 0.6);
+}
+
+.office-plant {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  width: 16px;
+  height: 20px;
+
+  background: #2d6a4f;
+  border: 2px solid #14161a;
+  border-radius: 50% 50% 20% 20%;
+}
+
 .office-agent-layer {
   position: absolute;
   inset: 0;
@@ -1415,43 +1450,61 @@ body {
 
 .office-agent {
   position: absolute;
-  width: 28px;
-  height: 28px;
+  width: 56px;
+  height: 56px;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  color: white;
-  font-size: 0.65rem;
-  font-weight: bold;
-
   border: 2px solid #14161a;
   box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.4);
+
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
 
   cursor: pointer;
 
   transition: left 1.2s linear, top 1.2s linear;
 }
 
+.office-agent-label {
+  position: absolute;
+  top: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  white-space: nowrap;
+  font-size: 0.55rem;
+  color: #d1d5db;
+  letter-spacing: 0.5px;
+}
+
+.office-agent-fallback {
+  color: white;
+  font-size: 0.65rem;
+  font-weight: bold;
+}
+
 .office-agent-aries {
-  background: #2d6a4f;
+  background-color: #2d6a4f;
 }
 
 .office-agent-taurus {
-  background: #3a6ea5;
+  background-color: #3a6ea5;
 }
 
 .office-agent-virgo {
-  background: #7c5cbf;
+  background-color: #7c5cbf;
 }
 
 .office-agent-libra {
-  background: #b8860b;
+  background-color: #b8860b;
 }
 
 .office-agent-sagittarius {
-  background: #c0562f;
+  background-color: #c0562f;
 }
 
 .office-agent.meeting {
@@ -1477,6 +1530,12 @@ body {
 .office-tooltip h4 {
   margin-bottom: 6px;
   color: #ffd54f;
+}
+
+.office-tooltip-job {
+  font-size: 0.65rem;
+  font-weight: normal;
+  color: #9ca3af;
 }
 
 .office-tooltip p {
