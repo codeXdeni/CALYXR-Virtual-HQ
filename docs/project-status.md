@@ -3,7 +3,7 @@
 > **⚠️ This file is the single source of truth for project status.**
 > If any other document, chat summary, or AI handoff disagrees with what's written here, **this file wins**. Update this file first when status changes; treat everything else (including `calyxr-hq-v1.0.md` and `calyxr-hq-v1.1-roadmap.md`) as historical record only.
 
-Current Version: v0.9.5 — Executive Dashboard Complete
+Current Version: v1.0 — Pixel Office
 
 Repository:
 https://github.com/codexdeni/CALYXR-Virtual-HQ
@@ -109,6 +109,10 @@ Theme:
 ✓ Executive KPI Dashboard Cards v0.9.1
 ✓ Executive Dashboard Complete v0.9.5
 
+### v1.0
+
+✓ Pixel Office — autonomous agent simulation tab. A new "Office" tab (`index.html`, `scripts/pixel-office.js`) renders the five agents as pixel sprites in a building of rooms (one per department + a lobby). No player character — agents move on their own, driven by the existing `generateCollaborations()` logic in `script.js` (an agent with an active collaboration walks to that department's room for a few ticks, then returns home). When two agents share a room it's flagged visually and logged to the existing Executive Activity Feed. Clicking an agent shows its live role/status/task. Resets to home rooms on page load — no persistence, since this only runs while the page is open.
+
 ---
 
 ## Departments
@@ -170,24 +174,19 @@ Tracks:
 
 ## Current Sprint
 
-Version: v1.0
+Version: v1.1
 
 Sprint Goal:
-Pixel-Office Visual Layer
+Expand the Pixel Office simulation (see Backlog)
 
 ---
 
 ## Planned Features
 
-### v1.0 — Pixel-Office Visual Layer ("Phase 5: Visual Upgrade")
-
-Open decisions (need owner sign-off before implementation starts):
-
-1. Animated pixel office (non-interactive ambient scene) vs. fully walkable/interactive office
-2. Replace the current campus-map section (`index.html`) with the new visual layer, vs. add it as a new dedicated tab alongside campus-map
-
 ### Backlog (not yet scheduled)
 
+* Pixel Office: pathfinding/obstacles if the building layout grows beyond direct room-to-room hops
+* Pixel Office: mobile/touch-friendly layout (currently desktop-oriented, scrolls horizontally on narrow viewports)
 * Agent Notes System
 * Agent Memory Layer
 * Project Dependency System
@@ -199,12 +198,12 @@ Open decisions (need owner sign-off before implementation starts):
 
 v0.5.1
 
-(Note: git tags lag behind the commit history above — latest tagged release is v0.5.1, but committed work has advanced to v0.9.5. Tagging should be caught up as part of the next release.)
+(Note: git tags lag behind the commit history above — latest tagged release is v0.5.1, but committed work has advanced to v1.0. Tagging should be caught up as part of the next release.)
 
 ---
 
 ## Last Completed Milestone
 
-CALYXR HQ v0.9.5 — Executive Dashboard Complete
+CALYXR HQ v1.0 — Pixel Office autonomous agent simulation tab
+Executive Dashboard Complete v0.9.5
 Executive KPI Dashboard Cards v0.9.1
-Interactive Department Command Console v0.8.1
