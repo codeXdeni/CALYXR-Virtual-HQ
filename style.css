@@ -1355,190 +1355,50 @@ body {
   color: #2c3e50;
 }
 
-#pixel-office {
-  position: relative;
+#office-canvas {
   width: 100%;
   max-width: 800px;
-  height: 640px;
-  margin: 0 auto;
-  overflow: auto;
+  height: auto;
+  aspect-ratio: 4 / 3;
 
   background: #2b2f36;
   border: 4px solid #14161a;
   box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.4);
 
-  font-family: "Courier New", Courier, monospace;
-}
-
-.office-room {
-  position: absolute;
-  width: 160px;
-  height: 120px;
-
-  border: 3px solid #6b7280;
-  background: rgba(255, 255, 255, 0.04);
-}
-
-.office-room-label {
-  position: absolute;
-  top: 6px;
-  left: 8px;
-  font-size: 0.7rem;
-  color: #d1d5db;
-  letter-spacing: 1px;
-}
-
-.office-room-aries {
-  border-color: #2d6a4f;
-}
-
-.office-room-taurus {
-  border-color: #3a6ea5;
-}
-
-.office-room-virgo {
-  border-color: #7c5cbf;
-}
-
-.office-room-libra {
-  border-color: #b8860b;
-}
-
-.office-room-sagittarius {
-  border-color: #c0562f;
-}
-
-.office-desk {
-  position: absolute;
-  bottom: 14px;
-  right: 14px;
-  width: 60px;
-  height: 24px;
-
-  background: #6b4a2f;
-  border: 2px solid #14161a;
-}
-
-.office-monitor {
-  position: absolute;
-  top: -16px;
-  right: 6px;
-  width: 20px;
-  height: 14px;
-
-  background: #14161a;
-  border: 2px solid #3a3f47;
-  box-shadow: 0 0 6px rgba(120, 200, 255, 0.6);
-}
-
-.office-plant {
-  position: absolute;
-  bottom: 10px;
-  left: 10px;
-  width: 16px;
-  height: 20px;
-
-  background: #2d6a4f;
-  border: 2px solid #14161a;
-  border-radius: 50% 50% 20% 20%;
-}
-
-.office-agent-layer {
-  position: absolute;
-  inset: 0;
-}
-
-.office-agent {
-  position: absolute;
-  width: 56px;
-  height: 56px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  border: 2px solid #14161a;
-  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.4);
-
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
-
   cursor: pointer;
-
-  transition: left 1.2s linear, top 1.2s linear;
 }
 
-.office-agent-label {
-  position: absolute;
-  top: -18px;
-  left: 50%;
-  transform: translateX(-50%);
-
-  white-space: nowrap;
-  font-size: 0.55rem;
-  color: #d1d5db;
-  letter-spacing: 0.5px;
-}
-
-.office-agent-fallback {
-  color: white;
-  font-size: 0.65rem;
-  font-weight: bold;
-}
-
-.office-agent-aries {
-  background-color: #2d6a4f;
-}
-
-.office-agent-taurus {
-  background-color: #3a6ea5;
-}
-
-.office-agent-virgo {
-  background-color: #7c5cbf;
-}
-
-.office-agent-libra {
-  background-color: #b8860b;
-}
-
-.office-agent-sagittarius {
-  background-color: #c0562f;
-}
-
-.office-agent.meeting {
-  box-shadow: 0 0 0 3px #ffd54f, 3px 3px 0 rgba(0, 0, 0, 0.4);
-}
-
-.office-tooltip {
-  position: absolute;
-  z-index: 5;
-
-  min-width: 180px;
-  padding: 10px 12px;
+#office-info-panel {
+  max-width: 800px;
+  min-height: 90px;
+  margin: 16px auto 0;
+  padding: 10px 14px;
 
   background: #14161a;
   color: #f3f4f6;
   border: 2px solid #ffd54f;
-  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.5);
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.4);
 
   font-family: "Courier New", Courier, monospace;
   text-align: left;
 }
 
-.office-tooltip h4 {
+#office-info-panel h4 {
   margin-bottom: 6px;
   color: #ffd54f;
 }
 
-.office-tooltip-job {
+.office-info-job {
   font-size: 0.65rem;
   font-weight: normal;
   color: #9ca3af;
 }
 
-.office-tooltip p {
-  font-size: 0.8rem;
+#office-info-panel p {
+  font-size: 0.85rem;
   margin: 2px 0;
+}
+
+.office-info-hint {
+  color: #9ca3af;
 }
