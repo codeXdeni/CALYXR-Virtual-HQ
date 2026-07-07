@@ -1,3 +1,5 @@
+> **⚠️ Superseded.** These features were actually built — but under a restarted v0.2 → v0.4 numbering for the dashboard layer, not as "v1.1". See [`project-status.md`](project-status.md) (the canonical source of truth) for the "Version History Reconciliation" section mapping each feature below to the commit and version that shipped it. Kept here for historical reference only.
+
 # CALYXR HQ v1.1 Roadmap
 
 Status: Planned

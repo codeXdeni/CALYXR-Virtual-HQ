@@ -1,3 +1,5 @@
+> **⚠️ Superseded.** This "v1.0" release was real, but the versioning scheme that followed it (the v1.1 roadmap, then a restart to v0.1 for the dashboard layer) is what continued — this project is not on a v1.x track today. Current status lives in [`project-status.md`](project-status.md), which is the canonical source of truth — see its "Version History Reconciliation" section for how this file fits in. Kept here for historical reference only.
+
 # CALYXR HQ v1.0
 
 Status: Complete

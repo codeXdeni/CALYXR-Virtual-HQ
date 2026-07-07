@@ -1,12 +1,33 @@
 # CALYXR Virtual HQ
 
-Current Version: v0.5
+> **⚠️ This file is the single source of truth for project status.**
+> If any other document, chat summary, or AI handoff disagrees with what's written here, **this file wins**. Update this file first when status changes; treat everything else (including `calyxr-hq-v1.0.md` and `calyxr-hq-v1.1-roadmap.md`) as historical record only.
+
+Current Version: v0.9.5 — Executive Dashboard Complete
 
 Repository:
 https://github.com/codexdeni/CALYXR-Virtual-HQ
 
 Project Location:
-E:\CALYXR_CORE\ARIES\Projects\CALYXR-Virtual-HQ
+F:\CALYXR_CORE\ARIES\Projects\CALYXR-Virtual-HQ
+
+---
+
+## Version History Reconciliation
+
+Three separate narratives about this project's status have accumulated over time, and they disagreed with each other. Traced against `git log --reverse`, here's what actually happened, and how the conflicting docs map onto it:
+
+1. **`calyxr-hq-v1.0.md`** — the real, shipped whole-project milestone (commit `d51eeca` "Release CALYXR HQ v1.0"), released right after the founding departments (ARIES, TAURUS, VIRGO, LIBRA, SAGITTARIUS) were first built out.
+2. **`calyxr-hq-v1.1-roadmap.md`** — created immediately after (commit `c27a8ef`), listing six planned features: Shared Project Database, Progress Bars, Department Status Indicators, Dynamic Dashboard Metrics, Cross-Department Project Tracking, Interactive Command Center.
+3. That roadmap was then **actually built** — the very next commits implement it feature-for-feature ("Connect HQ metrics to shared data," "Make department status board data driven," "Make roadmap panel data driven," "Create department performance engine," "Add department command console"). Partway through, the internal versioning for this dashboard layer **restarted at v0.1** and climbed independently of the "v1.0/v1.1" whole-project numbering — the v1.1 roadmap's features are what became **v0.2** (Executive Command Center, Project Tracker — Features 1 & 4), **v0.3** (Department Health Rankings — Features 2 & 3), and **v0.4** (Department Command Console — Feature 6). So the roadmap wasn't abandoned; it was absorbed into the restarted numbering, and that restarted scheme is what continued on through v0.5 → v0.9.5 (this file).
+4. **This file (`project-status.md`)** is the running log of that restarted scheme from v0.5 onward, and is the canonical source of truth.
+5. **A fourth, informal narrative** (from an outside ChatGPT session, not committed to the repo) claimed some features as "planned for v0.9" that were actually already built, and proposed a "Phase 5: Visual Upgrade" concept. That session also referred to a "v0.9.5 phase system" — to be clear, **v0.9.5 itself is real, shipped history** (commit `a433215`, current HEAD), not aspirational. Only the "Phase 5: Visual Upgrade" idea is aspirational/future — it has been folded into **Planned Features** below under its own heading, kept distinct from the real v0.9.5 milestone so the two aren't conflated again.
+
+**Correction applied:** localStorage persistence (department selection, active tab, agent tasks, activity feed) was incorrectly listed as a "planned v0.9" feature in that fourth narrative. It is **already implemented**, and shipped back in v0.5 — see `script.js` (`saveData()`/`loadData()`, plus direct `localStorage` calls for `selectedDepartment` and `activeExecutiveTab`).
+
+**Known cleanup item:** `script.js` has a leftover/duplicate persistence path — `saveAgentTasks()` / `loadAgentTasks()` write to a `calyxr-agentTasks` localStorage key, but neither function is ever called. The active path is `saveData()` / `loadData()`, which uses plain `agentTasks` / `activityFeed` keys and is called at startup and on task toggle. The dead `calyxr-agentTasks` pair should be deleted in a future pass — flagged here so it isn't mistaken for a second, intentional storage layer.
+
+**Terminology note:** department-specific docs (`aries-v0.2.md`, `taurus-v0.2.md`, `virgo-v0.1.md`, `libra-v0.1.md`, `sagittarius-v0.1.md`) use their own independent per-page version numbers — these track each department page's own iteration and are unrelated to the overall project version tracked in this file. A department doc at "v0.2" does not correspond to overall project v0.2.
 
 ---
 
@@ -60,6 +81,33 @@ Theme:
 * Workload Bars
 * Efficiency Ratings
 * Auto Activity Logging
+* localStorage persistence: department selection, active executive tab, agent tasks, activity feed
+
+### v0.6
+
+✓ Agent Recommendations Engine v0.6.1
+✓ Department Intelligence Cards v0.6.2
+✓ Executive Insights Engine v0.6.3
+✓ Strategic Directives Engine v0.6.4
+
+### v0.7
+
+✓ Department Mission Briefings v0.7.0
+✓ Dynamic Mission Generation v0.7.1
+✓ Mission Progress Bars
+✓ Department Objectives v0.7.2
+✓ Department Status Indicators v0.7.3
+✓ Department KPI System v0.7.4
+✓ Cross Department Collaboration Engine v0.7.5
+
+### v0.8
+
+✓ Interactive Department Command Console v0.8.1
+
+### v0.9
+
+✓ Executive KPI Dashboard Cards v0.9.1
+✓ Executive Dashboard Complete v0.9.5
 
 ---
 
@@ -97,6 +145,8 @@ Tracks:
 * Completion status
 * Performance calculations
 
+Persisted to localStorage (`agentTasks` key) via `saveData()` / `loadData()`.
+
 ### activityFeed
 
 Tracks:
@@ -104,6 +154,8 @@ Tracks:
 * Department updates
 * Completed tasks
 * HQ activity history
+
+Persisted to localStorage (`activityFeed` key) via `saveData()` / `loadData()`.
 
 ### CALYXR.agents
 
@@ -118,66 +170,41 @@ Tracks:
 
 ## Current Sprint
 
-Version: v0.6
+Version: v1.0
 
 Sprint Goal:
-Build Agent Intelligence Layer
+Pixel-Office Visual Layer
 
 ---
 
 ## Planned Features
 
-### v0.6
+### v1.0 — Pixel-Office Visual Layer ("Phase 5: Visual Upgrade")
 
-#### Completed
+Open decisions (need owner sign-off before implementation starts):
 
-✓ Agent Recommendations Engine v0.6.1
-✓ Department Intelligence Cards v0.6.2
-✓ Executive Insights Engine v0.6.3
-✓ Strategic Directives Engine v0.6.4
+1. Animated pixel office (non-interactive ambient scene) vs. fully walkable/interactive office
+2. Replace the current campus-map section (`index.html`) with the new visual layer, vs. add it as a new dedicated tab alongside campus-map
 
-### v0.7
+### Backlog (not yet scheduled)
 
-#### Completed
-
-✓ Department Mission Briefings v0.7.0
-✓ Dynamic Mission Generation v0.7.1
-✓ Mission Progress Bars
-✓ Department Objectives v0.7.2
-✓ Department Status Indicators
-✓ Department KPI System v0.7.4
-
-#### In Progress
-
-• Cross Department Collaboration v0.7.5
-
-#### Upcoming
-
-• Agent Notes System
-• Agent Memory Layer
-
-### v0.8
-
+* Agent Notes System
+* Agent Memory Layer
 * Project Dependency System
-
-### v0.9
-
-* Persistent Data Storage
-
-### v1.0
-
-* CALYXR HQ MVP Release
+* Cleanup: remove dead `calyxr-agentTasks` / `saveAgentTasks()` / `loadAgentTasks()` code in `script.js`
 
 ---
 
 ## Latest Git Tag
 
-v0.5
+v0.5.1
+
+(Note: git tags lag behind the commit history above — latest tagged release is v0.5.1, but committed work has advanced to v0.9.5. Tagging should be caught up as part of the next release.)
 
 ---
 
 ## Last Completed Milestone
 
-Agent Recommendations Engine v0.6.1
-Agent Workload Analysis
-Dynamic Recommendation Panel
+CALYXR HQ v0.9.5 — Executive Dashboard Complete
+Executive KPI Dashboard Cards v0.9.1
+Interactive Department Command Console v0.8.1
